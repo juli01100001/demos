@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCC Estética Automotiva | Car Detailing em Londrina</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,700;0,900;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --color-black: #0b0b0b;
+            --color-dark-grey: #161616;
+            --color-white: #ffffff;
+            --color-red: #e50914;
+            --color-red-hover: #b20710;
+            --font-main: 'Montserrat', sans-serif;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-black);
+            color: var(--color-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--color-red);
+            color: var(--color-white);
+            padding: 12px 32px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 4px;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            cursor: pointer;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: #b20710;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 50px;
+            letter-spacing: 1px;
+        }
+
+        .section-title span {
+            color: var(--color-red);
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        header.scroll {
+            padding: 10px 0;
+            background-color: #0b0b0b;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            max-width: 180px;
+            height: auto;
+            transition: var(--transition);
+        }
+
+        .logo-img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            display: block;
+            filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.5));
+        }
+
+        .logo-link:hover {
+            transform: scale(1.03);
+        }
+
+        @media (max-width: 480px) {
+            .logo-link {
+                max-width: 115px;
+            }
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-link {
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--color-red);
+        }
+
+        header:has(.nav-menu.active) .menu-toggle span:nth-child(1) {
+            transform: translateY(0) rotate(-45deg);
+        }
+
+        header:has(.nav-menu.active) .menu-toggle span:nth-child(2) {
+            transform: translateY(0) rotate(45deg);
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.66), rgba(0, 0, 0, 0.95)), url('https://images.unsplash.com/photo-1607860108855-64acf2078ed9?q=80&w=1920') no-repeat center center/cover;
+            padding-top: 100px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(transparent, var(--color-black));
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .badge {
+            display: inline-block;
+            color: var(--color-white);
+            padding: 6px 0;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            border-radius: 2px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.1;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 span {
+            color: var(--color-red);
+            display: block;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #f2f2f2;
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+
+        .services {
+            padding: 100px 0;
+            background-color: var(--color-black);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: var(--color-dark-grey);
+            padding: 40px 30px;
+            border-radius: 4px;
+            border-bottom: 3px solid transparent;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-bottom-color: var(--color-red);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--color-red);
+            margin-bottom: 25px;
+        }
+
+        .service-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .service-card p {
+            color: #d9d9d9;
+            font-size: 0.95rem;
+        }
+
+        .trabalhos {
+            padding: 100px 0;
+            background-color: var(--color-black);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #f2f2f2;
+            max-width: 600px;
+            margin: -30px auto 50px auto;
+            font-size: 1rem;
+        }
+
+        .trabalhos-grid-videos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .video-card {
+            background-color: var(--color-dark-grey);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 9 / 16;
+            background-color: #000;
+            cursor: pointer;
+        }
+
+        .detailing-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-controls-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .play-icon {
+            font-size: 3.5rem;
+            color: var(--color-white);
+            opacity: 0.9;
+            transition: var(--transition);
+            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+        }
+
+        .video-wrapper:hover .play-icon {
+            transform: scale(1.1);
+            color: var(--color-red);
+        }
+
+        .video-wrapper.playing .video-controls-overlay {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .video-footer {
+            padding: 15px;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .video-footer a {
+            color: #ccc;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .video-footer a:hover {
+            color: var(--color-red);
+        }
+
+        .trabalhos-action {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 600px) {
+            .video-footer {
+                font-size: 0.75rem;
+                padding: 10px 5px;
+            }
+        }
+
+        .reviews {
+            padding: 100px 0;
+            background-color: var(--color-dark-grey);
+            position: relative;
+        }
+
+        .google-rating-summary {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .google-rating-summary .stars {
+            color: #ffb400;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .google-rating-summary p {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .review-card {
+            background-color: var(--color-black);
+            padding: 35px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .reviewer-info h4 {
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+
+        .reviewer-info span {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .review-card .stars {
+            color: #ffb400;
+            font-size: 0.9rem;
+        }
+
+        .review-card p {
+            color: #d9d9d9;
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        footer {
+            background-color: var(--color-black);
+            padding: 80px 0 30px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+
+        .footer-info h3,
+        .footer-links h4,
+        .footer-contact h4 {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        .footer-info p {
+            color: #f2f2f2;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--color-dark-grey);
+            border-radius: 4px;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .social-btn:hover {
+            background-color: var(--color-red);
+            transform: translateY(-3px);
+        }
+
+        .footer-contact ul li {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 15px;
+            color: #f2f2f2;
+            font-size: 0.95rem;
+        }
+
+        .footer-contact ul li i {
+            color: var(--color-red);
+            margin-top: 4px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            font-size: 0.85rem;
+            color: #555;
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            text-decoration: none;
+            animation: pulsarSimples 1.5s ease-in-out infinite;
+        }
+
+        .whatsapp-float:hover {
+            animation-play-state: paused;
+            background-color: #20ba5a;
+            transform: scale(1.1);
+        }
+
+        @keyframes pulsarSimples {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 1098px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            #mobile-menu {
+                position: relative;
+                z-index: 1001;
+                cursor: pointer;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100vh;
+                background-color: var(--color-black);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 40px;
+                padding-top: 0;
+                transition: var(--transition);
+                z-index: 999;
+            }
+
+            .menu-toggle {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 30px;
+                height: 30px;
+                cursor: pointer;
+                position: relative;
+            }
+
+            .menu-toggle span {
+                width: 24px;
+                height: 2px;
+                background-color: #fff;
+                display: block;
+                position: absolute;
+                transition: transform 0.2s ease;
+            }
+
+            .menu-toggle span:nth-child(1) {
+                transform: translateY(-5px);
+            }
+
+            .menu-toggle span:nth-child(2) {
+                transform: translateY(5px);
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .footer-grid {
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="https://wa.me/5543991927409?text=Ol%C3%A1%21+Gostaria+de+solicitar+um+or%C3%A7amento+para+est%C3%A9tica+automotiva."
+        class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contato via WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <header id="header">
+        <div class="container">
+            <nav>
+                <a href="#" class="logo-link">
+                    <img src="./mcc-estetica-logo-hd.png" alt="MCC Estética Automotiva - Car Detailing"
+                        class="logo-img">
+                </a>
+                <div class="menu-toggle" id="mobile-menu">
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#servicos" class="nav-link">Serviços</a></li>
+                    <li><a href="#trabalhos" class="nav-link">Resultados</a></li>
+                    <li><a href="#avaliacoes" class="nav-link">Avaliações</a></li>
+                    <li><a href="#contato" class="nav-link">Contato</a></li>
+                    <li><a href="https://wa.me/5543991927409" target="_blank" rel="noopener noreferrer"
+                            class="btn">Agendar Horário</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <span class="badge">Especialistas em Car Detailing</span>
+                <h1>Muito <span>além</span> de uma lavagem.</h1>
+                <p>
+                    Técnicas tradicionais, cuidado cirúrgico e resultados impecáveis para quem exige o melhor.
+                    Resgatamos a essência e a proteção do seu patrimônio com a firmeza e a tradição dos detailers do
+                    antigo testamento.
+                </p>
+                <a href="https://wa.me/5543991927409" target="_blank" rel="noopener noreferrer" class="btn">Orçamento
+                    Sem Compromisso</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="servicos" class="services">
+        <div class="container">
+            <h2 class="section-title">Nossos <span>Serviços</span></h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-car"></i></div>
+                    <h3>Polimento Técnico</h3>
+                    <p>Remoção de riscos, hologramas e imperfeições na pintura, devolvendo o brilho espelhado e a
+                        profundidade original da cor.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-shield-halved"></i></div>
+                    <h3>Vitrificação</h3>
+                    <p>Proteção de alta performance contra agentes químicos, raios UV e dejetos, criando uma camada de
+                        brilho extremo e hidrofobicidade.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-soap"></i></div>
+                    <h3>Higienização Interna</h3>
+                    <p>Limpeza profunda e detalhada de bancos, painéis, carpetes e teto, eliminando ácaros, bactérias e
+                        sujeiras incrustadas.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-wind"></i></div>
+                    <h3>Oxi-Sanitização</h3>
+                    <p>Tecnologia baseada em ozônio para eliminar completamente odores desagradáveis e purificar o ar no
+                        interior do veículo.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-droplet"></i></div>
+                    <h3>Remoção de Marca D'água</h3>
+                    <p>Eliminação de manchas de chuva ácida e minerais impregnados nos vidros e na lataria sem agredir a
+                        superfície.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-handshake"></i></div>
+                    <h3>Preparação para Venda</h3>
+                    <p>Um trato completo focado na valorização comercial do seu veículo, cuidando de cada detalhe para
+                        impressionar o comprador.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="trabalhos" class="trabalhos">
+        <div class="container">
+            <h2 class="section-title">Resultados em <span>Vídeo</span></h2>
+            <p class="section-subtitle">Assista aos bastidores e transformações completas gravadas direto da nossa
+                oficina em Londrina.</p>
+            <div class="trabalhos-grid-videos">
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video src="./video1.mp4" loop muted playsinline preload="metadata"
+                            class="detailing-video"></video>
+                        <div class="video-controls-overlay">
+                            <i class="fas fa-play play-icon"></i>
+                        </div>
+                    </div>
+                    <div class="video-footer">
+                        <a href="https://www.instagram.com/mccesteticaautomotiva/reel/DVv83JWjm7S/" target="_blank"
+                            rel="noopener noreferrer">
+                            <i class="fab fa-instagram"></i> @mccesteticaautomotiva
+                        </a>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video src="./video3.mp4" loop muted playsinline preload="metadata"
+                            class="detailing-video"></video>
+                        <div class="video-controls-overlay">
+                            <i class="fas fa-play play-icon"></i>
+                        </div>
+                    </div>
+                    <div class="video-footer">
+                        <a href="https://www.tiktok.com/@mccesteticaautomotiva/video/7611998494504652040"
+                            target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-tiktok"></i> @mccesteticaautomotiva
+                        </a>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video src="./video2.mp4" loop muted playsinline preload="metadata"
+                            class="detailing-video"></video>
+                        <div class="video-controls-overlay">
+                            <i class="fas fa-play play-icon"></i>
+                        </div>
+                    </div>
+                    <div class="video-footer">
+                        <a href="https://www.instagram.com/mccesteticaautomotiva/reel/DP9vr9nDlk9/" target="_blank"
+                            rel="noopener noreferrer">
+                            <i class="fab fa-instagram"></i> Ver no Instagram
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="trabalhos-action">
+                <a href="https://wa.me/5543991927409" target="_blank" rel="noopener noreferrer" class="btn">Quero um
+                    resultado assim no meu carro</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="avaliacoes" class="reviews">
+        <div class="container">
+            <h2 class="section-title">Padrão <span>MCC</span></h2>
+            <div class="google-rating-summary">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>4.8/5 baseados em +100 avaliações no Google</p>
+                <p>4.9/5 baseados em +40 avaliações no Facebook</p>
+            </div>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="reviewer-info">
+                            <h4>Felipe</h4>
+                            <span>Há 2 semanas</span>
+                        </div>
+                        <div class="stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p>"Atendimento de qualidade Profissionais muito técnicos que passam segurança"</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="reviewer-info">
+                            <h4>Gabriela</h4>
+                            <span>Há 2 meses</span>
+                        </div>
+                        <div class="stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p>"A equipe é extremamente competente, detalhista e cuidadosa em cada etapa do trabalho, garantindo
+                        um resultado final que superou nossas expectativas. Nosso carro recebeu um verdadeiro upgrade
+                        graças ao profissionalismo e dedicação de todos."</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="reviewer-info">
+                            <h4>Anderson</h4>
+                            <span>Há 8 meses</span>
+                        </div>
+                        <div class="stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p>"Levei Uno 2013 para fazer todo processo de limpeza e sai com carro 0km todos da MCC são super 10
+                        muito profissionais no que fazem estão de parabéns pelo trabalho realizado, super recomendo."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contato">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-info">
+                    <h3>MCC Estética Automotiva</h3>
+                    <p>Entregamos o verdadeiro Car Detailing em Londrina. </p>
+                    <div class="social-icons">
+                        <a href="https://www.instagram.com/mccesteticaautomotiva" target="_blank"
+                            rel="noopener noreferrer" class="social-btn" aria-label="Instagram"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@mccesteticaautomotiva" target="_blank"
+                            rel="noopener noreferrer" class="social-btn" aria-label="TikTok"><i
+                                class="fab fa-tiktok"></i></a>
+                        <a href="https://www.facebook.com/mccesteticaautomotiva" target="_blank"
+                            rel="noopener noreferrer" class="social-btn" aria-label="Facebook"><i
+                                class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Navegação</h4>
+                    <ul>
+                        <li><a href="#servicos"
+                                style="display: block; margin-bottom: 10px; color: #d9d9d9;">Serviços</a></li>
+                        <li><a href="#trabalhos"
+                                style="display: block; margin-bottom: 10px; color: #d9d9d9;">Resultados</a></li>
+                        <li><a href="#avaliacoes"
+                                style="display: block; margin-bottom: 10px; color: #d9d9d9;">Avaliações</a></li>
+                        <li><a href="https://wa.me/5543991927409"
+                                style="display: block; margin-bottom: 10px; color: #d9d9d9;">Agendamentos</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact">
+                    <h4>Contato & Endereço</h4>
+                    <ul>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Av. Portugal, 892 - Jd Igapó<br>Londrina - PR, 86046-010</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone-alt"></i>
+                            <span>(43) 99192-7409</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <span>Segunda a Sábado: 08:00 às 18:00</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const videoContainers = document.querySelectorAll('.video-wrapper');
+
+            videoContainers.forEach(container => {
+                const video = container.querySelector('.detailing-video');
+
+                container.addEventListener('click', () => {
+                    if (video.paused) {
+                        document.querySelectorAll('.detailing-video').forEach(v => {
+                            v.pause();
+                            v.muted = true;
+                            v.parentElement.classList.remove('playing');
+                        });
+
+                        video.muted = false;
+                        video.play();
+                        container.classList.add('playing');
+                    } else {
+                        video.pause();
+                        video.muted = true;
+                        container.classList.remove('playing');
+                    }
+                });
+
+                video.addEventListener('ended', () => {
+                    video.muted = true;
+                    container.classList.remove('playing');
+                });
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scroll');
+            } else {
+                header.classList.remove('scroll');
+            }
+        });
+
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.querySelector('.nav-menu');
+
+        if (mobileMenu && navMenu) {
+            mobileMenu.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                });
+            });
+        }
+
+    </script>
+</body>
+
+</html>
