@@ -17,6 +17,10 @@
            -moz-osx-font-smoothing: grayscale;
        }
 
+       html {
+           scroll-behavior: smooth;
+       }
+
        body {
            font-family: var(--font-family);
            background-color: var(--bg-primary);
@@ -494,6 +498,15 @@
        .accordion-item.active .accordion-right {
            display: block;
        }
+
+       .accordion-right {
+           transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+       }
+
+       .accordion-item.active .accordion-right {
+           animation: fadeSlide 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+       }
+
 
        footer {
            position: relative;
