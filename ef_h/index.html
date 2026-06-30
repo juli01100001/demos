@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EF Harmony | Harmonização Facial e Estética - Londrina</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* CSS Reset & Variables mimicking the image palette */
+        :root {
+            --bg-cream: #FAF7F2;
+            --text-dark: #1C1B1A;
+            --text-muted: #575551;
+            --brand-dark: #111111;
+            --font-serif: 'Cormorant Garamond', Georgia, serif;
+            --font-sans: 'Montserrat', sans-serif;
+
+            --transition-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Reusable Components matching the design file */
+        a {
+            text-decoration: none;
+            color: #FAF7F2;
+        }
+
+        .container {
+            max-width: 90%;
+            margin: 0 auto;
+            padding: 0 4%;
+        }
+
+        .line-separator {
+            width: 100%;
+            height: 1px;
+            background-color: rgba(28, 27, 26, 0.15);
+            margin: 6rem 0;
+        }
+
+        /* 1. HERO SECTION (Dark Mode Contrast) */
+        header {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+                url('https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?q=80&w=2070&auto=format&fit=crop') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: #FFFFFF;
+            overflow: hidden;
+        }
+
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 4%;
+            font-size: 0.75rem;
+            letter-spacing: 0.2rem;
+            text-transform: uppercase;
+            z-index: 10;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a,
+        .nav-brand {
+            color: #FFFFFF;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            font-weight: 400;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.7;
+        }
+
+        .cta-nav-btn {
+            border: 1px solid #FFFFFF;
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .cta-nav-btn:hover {
+            background-color: #FFFFFF;
+            color: var(--brand-dark);
+        }
+
+        .hero-title-container {
+            padding: 0 4% 15vh 4%;
+            max-width: 900px;
+            transform: translateZ(50px);
+            /* Base for 3D Layering */
+
+        }
+
+        .hero-title-container h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(3rem, 7vw, 6rem);
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title-container p {
+            font-size: 0.85rem;
+            letter-spacing: 0.15rem;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+
+        /* 4. PHILOSOPHY / ABOUT SECTION */
+        .filosofia-editorial-section {
+            padding: 140px 0;
+            background-color: var(--bg-light);
+        }
+
+        /* Bloco Manifesto Superior */
+        .filosofia-manifesto-top {
+            margin: 0 auto 140px auto;
+            text-align: center;
+        }
+
+        .manifesto-quote {
+            font-family: var(--font-serif);
+            font-size: 3.4rem;
+            /* Aumentado para maior impacto (era 2.1rem) */
+            color: var(--primary-deep);
+            line-height: 1;
+            padding: 0 20px;
+        }
+
+        /* Grid Assimétrico Alterado: 1.15fr para imagem e 0.85fr para texto (Imagem Maior) */
+        .filosofia-story-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        /* Coluna da Imagem Retrato (Ampliada) */
+        .story-image-col {
+            width: 100%;
+        }
+
+        .portrait-frame {
+            width: 100%;
+            /* Altura aumentada para expandir a verticalidade da imagem (era 680px) */
+            overflow: hidden;
+            box-shadow: 0 25px 55px rgba(0, 54, 63, 0.04);
+        }
+
+        .portrait-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 1.8s var(--transition-smooth);
+        }
+
+        .portrait-frame:hover img {
+            transform: scale(1.02);
+        }
+
+        /* Coluna de Texto */
+        .story-text-col {
+            padding-top: 0px;
+        }
+
+        .story-subtitle {
+            display: block;
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            /* Aumentado para melhor destaque (era 1.6rem) */
+            color: var(--primary-deep);
+            margin-bottom: 35px;
+            font-weight: 400;
+        }
+
+        .story-paragraphs {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .story-paragraphs p {
+            font-family: var(--font-editorial);
+            font-size: 1rem;
+            /* Letra aumentada para excelente legibilidade (era 0.82rem) */
+
+            color: #1C2321;
+            font-weight: 400;
+            text-align: justify;
+            letter-spacing: 0.01em;
+        }
+
+        /* 5. TREATMENTS GRID (Adapting your 6 key services) */
+        .treatments-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 4rem;
+        }
+
+        .treatments-header h2 {
+            font-family: var(--font-serif);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 300;
+        }
+
+        .treatments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 4rem 2.5rem;
+        }
+
+        .treatment-card {
+            border-top: 1px solid rgba(28, 27, 26, 0.15);
+            padding-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 250px;
+        }
+
+        .treatment-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+
+        .treatment-card p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .treatment-link {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s;
+        }
+
+        .treatment-link:hover {
+            gap: 0.8rem;
+        }
+
+        /* 6. TESTIMONIAL EDITORIAL BLOCK */
+        .testimonial-block {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            padding: 6rem 0;
+        }
+
+        .testimonial-text {
+            font-family: var(--font-serif);
+            font-size: clamp(1.5rem, 3vw, 2.4rem);
+            line-height: 1.4;
+            font-style: italic;
+            color: var(--brand-dark);
+        }
+
+        .testimonial-author {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15rem;
+            margin-top: 2rem;
+            font-style: normal;
+            color: var(--text-muted);
+            display: block;
+        }
+
+        .testimonial-img-wrapper {
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .testimonials-editorial-section {
+            padding: 120px 0 100px 0;
+            background-color: var(--bg-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .testimonials-editorial-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 80px;
+            /* Vão generoso entre as duas colunas */
+            align-items: start;
+        }
+
+        .editorial-col {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Blocos de Texto dos Depoimentos */
+        .review-block {
+            margin-bottom: 90px;
+            /* Espaço amplo entre os blocos (White Space) */
+        }
+
+        .reviewer-name {
+            font-family: var(--font-editorial);
+            font-size: 2.2rem;
+            font-weight: 400;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            letter-spacing: -0.01em;
+        }
+
+        .review-text {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            text-align: justify;
+        }
+
+        /* Imagens Estilo Galeria Editorial */
+        .editorial-image-block {
+            margin-bottom: 90px;
+            width: 100%;
+            overflow: hidden;
+            background-color: #EAE8E4;
+        }
+
+        .editorial-image-block img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            display: block;
+            filter: grayscale(15%);
+            /* Toque sutil de sobriedade artística */
+            transition: transform 1.5s var(--transition-smooth);
+        }
+
+        .editorial-image-block:hover img {
+            transform: scale(1.03);
+        }
+
+        /* Ajuste específico para alinhar com o topo da referência */
+        .right-col .first-image {
+            margin-bottom: 90px;
+        }
+
+        /* Botão de Ação Inferior (Design Minimalista) */
+        .testimonial-footer-action {
+            margin-top: 40px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .btn-editorial-cta {
+            display: inline-block;
+            padding: 18px 48px;
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-dark);
+            border: 1px solid var(--text-dark);
+            background-color: transparent;
+            transition: all 0.4s var(--transition-smooth);
+        }
+
+        .btn-editorial-cta:hover {
+            background-color: var(--text-dark);
+            color: var(--bg-light);
+            transform: translateY(-2px);
+        }
+
+        /* 7. BRUTALIST & MINIMALIST FOOTER (Dark Theme matched from sample) */
+        footer {
+            background-color: var(--brand-dark);
+            color: #FAF7F2;
+            padding: 6rem 0 3rem 0;
+            margin-top: 8rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-brand h2 {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            letter-spacing: 0.05rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            font-size: 0.85rem;
+            color: #A5A39F;
+            line-height: 1.6;
+        }
+
+        .footer-info h4 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            margin-bottom: 1.5rem;
+            color: #FFFFFF;
+        }
+
+        .footer-info p,
+        .footer-info a {
+            font-size: 0.85rem;
+            color: #A5A39F;
+            text-decoration: none;
+            line-height: 1.8;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-info a:hover {
+            color: #FFFFFF;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(250, 247, 242, 0.1);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: #7A7874;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .testimonial-block {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .testimonial-img-wrapper {
+                height: 350px;
+            }
+
+            .treatments-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .line-separator {
+                margin: 3rem 0;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .testimonials-editorial-grid {
+                gap: 0 40px;
+            }
+
+            .reviewer-name {
+                font-size: 1.9rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .testimonials-editorial-section {
+                padding: 80px 0;
+            }
+
+            .testimonials-editorial-grid {
+                grid-template-columns: 1fr;
+                /* Transforma em uma única coluna fluida */
+                gap: 0;
+            }
+
+            .review-block {
+                margin-bottom: 50px;
+                max-width: 100%;
+            }
+
+            .reviewer-name {
+                font-size: 1.75rem;
+                margin-bottom: 12px;
+            }
+
+            .editorial-image-block {
+                margin-bottom: 50px;
+                order: initial;
+                /* Mantém a ordem orgânica de leitura no mobile */
+            }
+
+            .right-col .first-image {
+                margin-bottom: 50px;
+            }
+
+            .btn-editorial-cta {
+                width: 100%;
+                /* Botão expandido no mobile para melhor área de toque */
+                padding: 16px 24px;
+            }
+        }
+
+
+        /* ==========================================================================
+   ANIMATIONS & SCROLL EFFECT ARCHITECTURE
+   ========================================================================== */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1.2s var(--transition-smooth), transform 1.2s var(--transition-smooth);
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes zoomOutHero {
+            from {
+                transform: scale(1.08);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes scrollAnimation {
+            0% {
+                transform: translate(-50%, 0);
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(-50%, 15px);
+                opacity: 0;
+            }
+        }
+
+        /* ==========================================================================
+   RESPONSIVE DESIGN (MEDIA QUERIES)
+   ========================================================================== */
+        @media (max-width: 1024px) {
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-title {
+                font-size: 3.2rem;
+            }
+
+            .procedures-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            #card-lavieen {
+                grid-column: span 2;
+            }
+
+            .filosofia-container,
+            .testimonials-container {
+                gap: 40px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 50px;
+            }
+
+            .brand-col {
+                grid-column: span 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 24px;
+            }
+
+            .main-header {
+                padding: 20px 0;
+                background-color: var(--bg-light);
+            }
+
+            .header-cta {
+                display: none;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: var(--bg-light);
+                flex-direction: column;
+                align-items: center;
+                padding-top: 60px;
+                gap: 40px;
+                transform: translateY(-120%);
+                transition: transform 0.6s var(--transition-smooth);
+            }
+
+            .nav-menu.active {
+                transform: translateY(0);
+            }
+
+            .hero-title {
+                font-size: 2.6rem;
+            }
+
+            .newsletter-container {
+                flex-direction: column;
+                align-items: start;
+                gap: 20px;
+            }
+
+            .filosofia-container,
+            .testimonials-container {
+                grid-template-columns: 1fr;
+            }
+
+            .filosofia-gallery,
+            .testimonial-image-side {
+                order: -1;
+            }
+
+            .procedures-grid {
+                grid-template-columns: 1fr;
+            }
+
+            #card-lavieen {
+                grid-column: span 1;
+                height: 450px;
+                align-items: flex-end;
+            }
+
+            #card-lavieen .card-content {
+                max-width: 100%;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .brand-col {
+                grid-column: span 1;
+            }
+
+            .whatsapp-float {
+                bottom: 24px;
+                right: 24px;
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="nav-brand">EF HARMONY</div>
+            <div class="nav-links">
+                <a href="#philosophy">Filosofia</a>
+                <a href="#procedimentos">Procedimentos</a>
+                <a href="#avaliacoes">Avaliações</a>
+                <a href="#contato">Contato</a>
+            </div>
+            <a href="https://wa.me/554330661295" target="_blank" class="nav-links a cta-nav-btn">Agendar Consulta</a>
+        </nav>
+
+        <div class="hero-title-container">
+            <h1>Harmonização Facial,<br>Redefinida.</h1>
+            <p>Estética Avançada & Bem-Estar — Londrina, PR</p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section id="philosophy" class="filosofia-editorial-section">
+            <div class="container">
+
+                <div class="filosofia-manifesto-top scroll-reveal">
+                    <p class="manifesto-quote">
+                        "A verdadeira beleza é a realização do potencial único de cada um. Seja qual for o seu objetivo,
+                        encontraremos a solução para que você se revele como nasceu para ser: em sua melhor e mais
+                        harmônica versão."
+                    </p>
+                </div>
+
+                <div class="filosofia-story-grid">
+
+                    <div class="story-image-col scroll-reveal">
+                        <div class="portrait-frame">
+                            <img src="presentation.png" alt="Especialista EF Harmony">
+                        </div>
+                    </div>
+
+                    <div class="story-text-col scroll-reveal">
+                        <span class="story-subtitle">Dr. Eduardo Fonseca</span>
+
+                        <div class="story-paragraphs">
+                            <p>
+                                Reconhecida por sua abordagem humanizada, científica e focada em resultados naturais, a
+                                EF Harmony está na vanguarda das tecnologias e metodologias mais avançadas de
+                                gerenciamento de pele e rejuvenescimento facial em Londrina. Inspirada pela ciência em
+                                constante evolução, nossa equipe estuda minuciosamente a anatomia individual para
+                                desenhar soluções precisas na reversão dos sinais do tempo, flacidez e contorno facial.
+                            </p>
+                            <p>
+                                A paixão pela arte da transformação sutil tem suas raízes na busca pela excelência
+                                clínica. Entendemos que muitos pacientes chegam até nós frustrados por tratamentos
+                                genéricos e invasivos que não respeitam suas características nativas. É por isso que
+                                desenvolvemos uma metodologia própria, flexível e transparente — um conceito de
+                                "estética sob medida" que preenche as lacunas deixadas pela estética convencional.
+                            </p>
+                            <p>
+                                Unindo anos de prática técnica e aperfeiçoamento contínuo em anatomia avançada, nossos
+                                especialistas combinam um olhar clínico rigoroso com a sensibilidade de um artista.
+                                Nossa educação continuada abrange técnicas internacionais, extraindo o melhor da
+                                tecnologia de lasers e injetáveis do mundo para oferecer o que há de mais moderno e
+                                seguro.
+                            </p>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+        <div class="line-separator"></div>
+
+        <section id="procedimentos">
+            <div class="treatments-header">
+                <h2>Procedimentos<br>e Protocolos</h2>
+            </div>
+
+            <div class="treatments-grid">
+                <div class="treatment-card scroll-reveal">
+                    <div>
+                        <h3>Rinomodelação</h3>
+                        <p>Modelagem nasal precisa com Ácido Hialurônico, conferindo simetria e refinamento imediato de
+                            forma não cirúrgica.</p>
+                    </div>
+                    <a href="https://wa.me/554330661295" class="treatment-link">Saber mais &rarr;</a>
+                </div>
+
+                <div class="treatment-card scroll-reveal">
+                    <div>
+                        <h3>Preenchimento Labial</h3>
+                        <p>Volume sob medida, contorno definido e hidratação profunda respeitando as proporções
+                            clássicas do seu rosto.</p>
+                    </div>
+                    <a href="https://wa.me/554330661295" class="treatment-link">Saber mais &rarr;</a>
+                </div>
+
+                <div class="treatment-card scroll-reveal">
+                    <div>
+                        <h3>Toxina Botulínica</h3>
+                        <p>O renomado Botox aplicado de maneira estratégica para suavizar linhas de expressão
+                            preservando sua naturalidade.</p>
+                    </div>
+                    <a href="https://wa.me/554330661295" class="treatment-link">Saber mais &rarr;</a>
+                </div>
+
+                <div class="treatment-card scroll-reveal">
+                    <div>
+                        <h3>Limpeza de Pele</h3>
+                        <p>Protocolo de higiene profunda associado a ativos calmantes e regeneradores para uma tez
+                            luminosa e uniforme.</p>
+                    </div>
+                    <a href="https://wa.me/554330661295" class="treatment-link">Saber mais &rarr;</a>
+                </div>
+
+                <div class="treatment-card scroll-reveal">
+                    <div>
+                        <h3>Ultrassom Microfocado</h3>
+                        <p>Tecnologia avançada de lifting não invasivo que estimula a produção de colágeno nas camadas
+                            mais profundas.</p>
+                    </div>
+                    <a href="https://wa.me/554330661295" class="treatment-link">Saber mais &rarr;</a>
+                </div>
+
+                <div class="treatment-card scroll-reveal">
+                    <div>
+                        <h3>Laser Lavieen</h3>
+                        <p>O queridinho do efeito "BB Cream". Uniformiza a textura, trata manchas e confere um glow
+                            incomparável à pele.</p>
+                    </div>
+                    <a href="https://wa.me/554330661295" class="treatment-link">Saber mais &rarr;</a>
+                </div>
+            </div>
+        </section>
+
+        <div class="line-separator"></div>
+
+        <section id="avaliacoes" class="scroll-reveal">
+            <section id="depoimentos" class="testimonials-editorial-section">
+                <div class="treatments-header">
+                <h2>O que nossos clientes dizem</h2>
+            </div>
+                <div class="container testimonials-editorial-grid">
+
+                    <div class="editorial-col left-col">
+                        <div class="review-block scroll-reveal">
+                            <h3 class="reviewer-name">Hilary H.</h3>
+                            <p class="review-text">
+                                "A EF Harmony mudou a minha pele. Elas me ajudaram a transformar não apenas a minha
+                                aparência, mas a minha abordagem de autocuidado. São especialistas que unem experiência
+                                profunda e um atendimento acolhedor. Se você busca um protocolo estético verdadeiramente
+                                personalizado e sofisticado, este é o lugar ideal."
+                            </p>
+                        </div>
+
+                        <div class="review-block scroll-reveal">
+                            <h3 class="reviewer-name">Lizzie S.</h3>
+                            <p class="review-text">
+                                "Eu amo cuidar da minha pele e já frequentei clínicas renomadas, mas a experiência aqui
+                                foi
+                                fantástica! A equipe tirou um tempo real para sentar e entender minhas queixas. Durante
+                                o
+                                procedimento, explicaram exatamente o que estava sendo feito. Saí com a pele
+                                incrivelmente
+                                radiante, hidratada e com um tom uniforme."
+                            </p>
+                        </div>
+
+                        <div class="editorial-image-block scroll-reveal">
+                            <img src="./1.png" alt="Procedimento facial delicado na EF Harmony">
+                        </div>
+
+                        <div class="review-block scroll-reveal">
+                            <h3 class="reviewer-name">C. M.</h3>
+                            <p class="review-text">
+                                "A equipe aborda a estética da mesma forma que um artista aborda uma tela. Ao invés de
+                                apenas aplicar um protocolo engessado, eles combinam técnicas — seja um preenchimento
+                                sutil,
+                                peeling ou laser — para otimizar os resultados de forma única. O ambiente é acolhedor e
+                                impecável."
+                            </p>
+                        </div>
+
+                        <div class="review-block scroll-reveal">
+                            <h3 class="reviewer-name">Tara L.</h3>
+                            <p class="review-text">
+                                "Com o passar dos meses seguindo o protocolo, as minhas linhas de expressão e marcas
+                                suavizaram drasticamente. Eles explicam toda a ciência por trás dos produtos e
+                                procedimentos
+                                sem pressionar você a comprar nada. É um ambiente clínico premium, sofisticado e
+                                totalmente
+                                focado no paciente."
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="editorial-col right-col">
+                        <div class="editorial-image-block first-image scroll-reveal">
+                            <img src="./2.png" alt="Cuidado estético e bem-estar">
+                        </div>
+
+                        <div class="review-block scroll-reveal">
+                            <h3 class="reviewer-name">Megha S.</h3>
+                            <p class="review-text">
+                                "Eu sofria com o aspecto cansado e a perda de viço há anos. Nenhum tratamento comum
+                                resolvia. Depois de iniciar o protocolo personalizado na EF Harmony, sinto que recuperei
+                                a
+                                jovialidade e o brilho natural do meu rosto. Estou oficialmente renovada!"
+                            </p>
+                        </div>
+
+                        <div class="review-block scroll-reveal">
+                            <h3 class="reviewer-name">Britney S.</h3>
+                            <p class="review-text">
+                                "O que eu mais amo aqui é o quão minuciosos são os profissionais. Já estive em vários
+                                consultórios em Londrina, mas nenhum se compara à experiência da EF Harmony. Cada vez
+                                que
+                                agendo um horário, sei que receberei um cuidado verdadeiramente individualizado."
+                            </p>
+                        </div>
+
+                        <div class="review-block scroll-reveal">
+                            <h3 class="reviewer-name">N. F.</h3>
+                            <p class="review-text">
+                                "Frequento a clínica há quase um ano e não poderia estar mais satisfeita. Se um
+                                determinado
+                                tratamento não está trazendo o efeito esperado no tempo certo, eles recalculam a rota
+                                imediatamente. Os produtos e tecnologias utilizados são nitidamente de ponta."
+                            </p>
+                        </div>
+
+                        <div class="review-block scroll-reveal">
+                            <h3 class="reviewer-name">Julia A.</h3>
+                            <p class="review-text">
+                                "Logo na primeira consulta, percebi que havia encontrado o lugar certo. Conversamos por
+                                meia
+                                hora antes de iniciar qualquer procedimento para alinhar expectativas e entender meu
+                                histórico. É um atendimento de elite, mas com um acolhimento genuíno. Recomendo muito!"
+                            </p>
+                        </div>
+
+                        <div class="review-block scroll-reveal">
+                            <h3 class="reviewer-name">Jen R.</h3>
+                            <p class="review-text">
+                                "Uma experiência inteligente e colaborativa. Não é uma clínica com pacotes prontos
+                                'copia e
+                                cola'; tudo é customizado. O espaço físico transmite uma paz incrível, é silencioso,
+                                limpo e
+                                extremamente sofisticado. Uma verdadeira pausa de bem-estar na rotina."
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="testimonial-footer-action scroll-reveal">
+                    <a href="https://wa.me/554330661295" target="_blank" rel="noopener noreferrer"
+                        class="btn-editorial-cta">Fale Conosco!</a>
+                </div>
+            </section>
+        </section>
+
+    </main>
+
+    <footer id="contato">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <h2>EF HARMONY</h2>
+                <p>Harmonização Facial e Estética<br>Nota 5.0 baseada em mais de 202 avaliações no Google.</p>
+            </div>
+
+            <div class="footer-info">
+                <h4>Onde Estamos</h4>
+                <p>Centro Empresarial Jardim Sul</p>
+                <p>Rua João Wyclif, 111 - Sala 1203</p>
+                <p>Santa Rosa, Londrina - PR, 86050-450</p>
+            </div>
+
+            <div class="footer-info">
+                <h4>Contato & Horários</h4>
+                <p>Telefone: (43) 3066-1295</p>
+                <p>Segunda a Sexta: Até às 19h</p>
+                <a href="https://wa.me/554330661295" target="_blank"
+                    style="text-decoration: underline; color: white;">Enviar Mensagem no WhatsApp</a>
+            </div>
+
+            <div class="footer-info">
+                <h4>Social</h4>
+                <a href="#" target="_blank">Instagram</a>
+                <a href="#" target="_blank">Facebook</a>
+            </div>
+        </div>
+
+        <div class="container footer-bottom">
+            <p>&copy; 2026 EF Harmony. Todos os direitos reservados.</p>
+            <p>Design Editorial de Alta Performance</p>
+        </div>
+    </footer>
+
+    <script>
+        // Registering ScrollTrigger plugin
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Smooth Parallax Effects on Images (Simulating depth / 3D feel)
+        gsap.utils.toArray('.parallax-img').forEach(img => {
+            gsap.to(img, {
+                yPercent: 15,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: img.parentElement,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
+        });
+
+        // Elegant fade-in reveal elements on scroll
+        gsap.utils.toArray('.scroll-reveal').forEach(element => {
+            gsap.fromTo(element,
+                { opacity: 0, y: 50 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1.2,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: element,
+                        start: "top 85%",
+                        toggleActions: "play none none none"
+                    }
+                }
+            );
+        });
+
+        // 3D Tilt effect on Hero Section components upon page initialization
+        gsap.from(".hero-title-container", {
+            opacity: 0,
+            z: -100,
+            duration: 1.8,
+            ease: "power4.out"
+        });
+    </script>
+</body>
+
+</html>
