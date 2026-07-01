@@ -12,55 +12,81 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 
 <body>
 
 
-    <header class="navbar">
-        <div class="nav-address">
-            <a href="https://www.google.com/maps/place/Instituto+Adrieli+Massaro+%7C+Harmoniza%C3%A7%C3%A3o+em+Londrina+-+PR/@-23.3311338,-51.1826431,17z/data=!3m1!4b1!4m10!1m2!2m1!1sAv.+Ayrton+Senna+da+Silva+Torre+Siena,+Sala+604+Londrina!3m6!1s0x94eb43bbf89287ff:0x6aa1140ee7b37763!8m2!3d-23.3311388!4d-51.1777722!15sCjhBdi4gQXlydG9uIFNlbm5hIGRhIFNpbHZhIFRvcnJlIFNpZW5hLCBTYWxhIDYwNCBMb25kcmluYZIBFmhlYWx0aF9hbmRfYmVhdXR5X3Nob3DgAQA!16s%2Fg%2F11kgjy_y1t?entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3D"
-                target="_blank" style="text-decoration: underline; color: inherit;">
-                <span>Av. Ayrton Senna da Silva Torre Siena, Sala 604</span>
-            </a>
-            <span>(43) 3354-3615</span>
-        </div>
+    <div id="gbarra">
+        <header class="navbar">
+            <div class="nav-address">
+                <a href="https://www.google.com/maps/place/Instituto+Adrieli+Massaro+%7C+Harmoniza%C3%A7%C3%A3o+em+Londrina+-+PR/@-23.3311338,-51.1826431,17z/data=!3m1!4b1!4m10!1m2!2m1!1sAv.+Ayrton+Senna+da+Silva+Torre+Siena,+Sala+604+Londrina!3m6!1s0x94eb43bbf89287ff:0x6aa1140ee7b37763!8m2!3d-23.3311388!4d-51.1777722!15sCjhBdi4gQXlydG9uIFNlbm5hIGRhIFNpbHZhIFRvcnJlIFNpZW5hLCBTYWxhIDYwNCBMb25kcmluYZIBFmhlYWx0aF9hbmRfYmVhdXR5X3Nob3DgAQA!16s%2Fg%2F11kgjy_y1t?entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3D"
+                    target="_blank" style="text-decoration: underline; color: inherit;">
+                    <span>Av. Ayrton Senna da Silva Torre Siena, Sala 604</span>
+                </a>
+                <span>(43) 3354-3615</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#services">Serviços</a>
+                <span class="nav-divider">/</span>
+                <a href="#before-after">Antes e Depois</a>
+                <span class="nav-divider">/</span>
+                <a href="#stats">Sobre</a>
+                <span class="nav-divider">/</span>
+                <a href="#testimonials">Avaliaçoes</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="https://wa.me/554333543615?text=Ola%2C%20gostaria%20de%20agendar%20uma%20consulta!"
+                    class="btn btn-book" target="_blank">Agende uma consulta</a>
+            </div>
+        </header>
+        <button class="btn-menu-dot" id="menuToggle" aria-label="Abrir menu" aria-expanded="false"
+            aria-controls="mobileDrawer">
+            <svg width="16" height="4" viewBox="0 0 16 4">
+                <circle cx="2" cy="2" r="2" />
+                <circle cx="8" cy="2" r="2" />
+                <circle cx="14" cy="2" r="2" />
+            </svg>
+        </button>
+    </div>
 
-        <nav class="nav-links">
-            <a href="#services">Serviços</a>
-            <span class="nav-divider">/</span>
-            <a href="#before-after">Antes e Depois</a>
-            <span class="nav-divider">/</span>
-            <a href="#stats">Sobre</a>
-            <span class="nav-divider">/</span>
-
-            <a href="#testimonials">Avaliaçoes</a>
-        </nav>
-
-        <div class="nav-actions">
-            <a href="#book" class="btn btn-book" target="_blank">Agende uma consulta</a>
-            <button class="btn-menu-dot" aria-label="Menu Extra">
-                <svg width="16" height="4" viewBox="0 0 16 4">
-                    <circle cx="2" cy="2" r="2" />
-                    <circle cx="8" cy="2" r="2" />
-                    <circle cx="14" cy="2" r="2" />
-                </svg>
-            </button>
-        </div>
-
-    </header>
-    <div class="mobile-drawer" id="mobileDrawer">
+    <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
         <div class="mobile-drawer__backdrop" id="drawerBackdrop"></div>
         <div class="mobile-drawer__panel">
-            <nav class="mobile-drawer__links">
-                <a href="#services">Serviços</a>
-                <a href="#before-after">Antes e Depois</a>
-                <a href="#stats">Sobre</a>
-                <a href="#testimonials">Avaliações</a>
-            </nav>
-            <a href="#book" class="mobile-drawer__cta" target="_blank">Agende uma consulta</a>
+            <div id="mob">
+
+                <nav class="mobile-drawer__links">
+                    <a href="#services">Serviços</a>
+                    <a href="#before-after">Antes e Depois</a>
+                    <a href="#stats">Sobre</a>
+                    <a href="#testimonials">Avaliações</a>
+                </nav>
+                <br>
+                <a href="https://wa.me/554333543615?text=Ola%2C%20gostaria%20de%20agendar%20uma%20consulta!"
+                        class="btn btn-book mobile-drawer__cta" target="_blank">Agende uma consulta</a>
+            </div>
+
+            <div class="social-icons gold">
+                <a href="https://www.instagram.com/dra.adrielimassaro/" target="_blank" class="icon-circle"
+                    aria-label="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+
+                <a href="https://www.youtube.com/@dra.adrielimassaro" target="_blank" class="icon-circle"
+                    aria-label="YouTube">
+                    <i class="fa-brands fa-youtube"></i>
+                </a>
+
+                <a href="https://www.facebook.com/institutoadrielimassaro/" target="_blank" class="icon-circle"
+                    aria-label="Facebook">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+
+            </div>
         </div>
+
+
     </div>
 
     <main class="hero">
@@ -75,49 +101,51 @@
             <div class="support-item">Resultados visíveis e reais
             </div>
         </div>
-
         <div class="hero-media-wrapper">
-            <img src="https://images.pexels.com/photos/9157201/pexels-photo-9157201.jpeg"
-                alt="Ambiente Clínico Premium Minimalista">
+            <picture>
+                <source media="(max-width: 767px)" srcset="./mobile.jpg">
+
+                <img width="1920" height="1080" src="https://images.pexels.com/photos/9157201/pexels-photo-9157201.jpeg"
+                    alt="Ambiente Clínico Premium Minimalista">
+            </picture>
         </div>
 
 
 
+        <section class="stats" id="stats">
+            <div class="stats-div">
+                <p>
+                    +12
+                </p>
+                <span>anos de experiência</span>
+            </div>
 
 
+            <div class="stats-div">
+                <p>
+                    +20.000
+                </p>
+                <span>procedimentos realizados</span>
+            </div>
+
+
+            <div class="stats-div">
+                <p>
+                    +1.500
+                </p>
+                <span>pacientes atendidos</span>
+            </div>
+
+            <div class="stats-div">
+                <p>
+                    100%
+                </p>
+                <span>satisfaçao de resultados</span>
+            </div>
+
+        </section>
     </main>
-    <section class="stats" id="stats">
-        <div class="stats-div">
-            <p>
-                +12
-            </p>
-            <span>anos de experiência</span>
-        </div>
 
-
-        <div class="stats-div">
-            <p>
-                +20.000
-            </p>
-            <span>procedimentos realizados</span>
-        </div>
-
-
-        <div class="stats-div">
-            <p>
-                +1.500
-            </p>
-            <span>pacientes atendidos</span>
-        </div>
-
-        <div class="stats-div">
-            <p>
-                100%
-            </p>
-            <span>satisfaçao de resultados</span>
-        </div>
-
-    </section>
 
 
     <section class="about">
@@ -134,12 +162,14 @@
             <h1>Proposito, <span class="highlight-text">com amor.</span> </h1>
 
 
-            <p class="quote-text">"A verdadeira harmonização não mora nos excessos, mas
-                nos detalhes que te fazem
-                brilhar! <br> Minha
-                missão é
-                guiar suas escolhas com transparência, segurança e aquele bom senso que a sua pele merece. Menos é
-                sempre mais quando o assunto é o seu bem-estar."</p>
+            <p class="quote-text">"<i>
+                    A verdadeira harmonização não mora nos excessos, mas
+                    nos detalhes que te fazem
+                    brilhar! Minha
+                    missão é
+                    guiar suas escolhas com transparência, segurança e aquele bom senso que a sua pele merece. Menos é
+                    sempre mais quando o assunto é o seu bem-estar.
+                </i>"</p>
 
             <span class="quote-author">— Dra. Adrieli Massaro [CRFPR 20601, CROPR 33969]</span>
         </div>

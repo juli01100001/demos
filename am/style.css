@@ -8,6 +8,23 @@
     --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
+
+
+.hero-support-line .support-item,
+.stats-div,
+.about .team-card,
+.about .quote-card,
+.ba-left,
+.ba-right,
+.testimonials-header,
+.testimonial-card,
+.prices-header,
+.price-item,
+.contact-form-side h2, .contact-subtitle, .clinic-form .form-group, .clinic-form .form-checkbox-group, .btn-consultation,
+.contact-image-side,
+.footer-branding {
+    will-change: transform, opacity;
+}
 *,
 *::before,
 *::after {
@@ -23,6 +40,7 @@ a {
 }
 
 body {
+    margin: 0 auto;
     background-color: var(--bg-principal);
     color: var(--texto-primario);
     font-family: var(--font-main);
@@ -35,12 +53,15 @@ img {
     filter: grayscale(15%);
 }
 
+/* section, footer,body  {
+    max-width: 1740px;
+} */
 
 /* ─── NAVBAR ─────────────────────────────────────────────── */
 
 .navbar {
     position: relative;
-    width: 100%;
+    width: 93%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -131,11 +152,12 @@ img {
 }
 
 .mobile-drawer {
-    display: none;
+    /* display: none; */
     position: fixed;
     inset: 0;
     z-index: 300;
-    pointer-events: none; /* não bloqueia cliques quando fechado */
+    pointer-events: none;
+    /* não bloqueia cliques quando fechado */
 }
 
 .mobile-drawer.is-open {
@@ -149,7 +171,8 @@ img {
     backdrop-filter: blur(4px);
     opacity: 0;
     transition: opacity 0.3s ease;
-    z-index: 1; /* atrás do painel */
+    z-index: 1;
+    /* atrás do painel */
 }
 
 .mobile-drawer__panel {
@@ -161,12 +184,13 @@ img {
     background: var(--bg-principal, #faf8f5);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 2.5rem;
+    justify-content: space-between;
+    gap: 2rem;
     padding: 3rem 2.5rem;
     transform: translateX(100%);
     transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 2; /* na frente do backdrop */
+    z-index: 2;
+    /* na frente do backdrop */
 }
 
 .mobile-drawer.is-open .mobile-drawer__backdrop {
@@ -185,7 +209,9 @@ img {
 .mobile-drawer.is-open .mobile-drawer__panel {
     transform: translateX(0);
 }
-
+#mob {
+    margin-top: 100%;
+}
 /* Links do drawer */
 .mobile-drawer__links {
     display: flex;
@@ -221,52 +247,60 @@ img {
     text-align: center;
     transition: background 0.2s;
 }
-
+#mobileDrawer > div.mobile-drawer__panel > div.social-icons.gold {
+    justify-items: flex-end;
+}
 .mobile-drawer__cta:hover {
     background-color: #7A665A;
 }
 
+#gbarra {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+
+}
 
 .btn-menu-dot {
-    position: relative;
-    z-index: 200;
-    transition: var(--transition-smooth), top 0.3s, right 0.3s, position 0s;
 
-    top: 10px;
-    right: 10px;
+
+    position: fixed;
     width: 40px;
     height: 40px;
+    top: 2rem;
+    right: 2rem;
+
     border-radius: 50%;
     background-color: rgba(150, 126, 112, 0.2);
+    backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: var(--transition-smooth);
     border: none;
+    transition: transform 0.3s ease, background-color 0.2s, top 0.3s, right 0.3s;
+    z-index: 9999;
 }
+
+.btn-menu-dot[aria-expanded="true"] {
+    transform: rotate(90deg);
+}
+
 .btn-menu-dot.is-floating {
-    position: fixed;
-    top: 20px;
-    right: 24px;
-    background-color: rgba(150, 126, 112, 0.85);
-    backdrop-filter: blur(8px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+    transition: var(--transition-smooth);
+
+
 }
+
 .btn-menu-dot.is-floating svg {
     fill: var(--branco);
 }
 
-.btn-menu-dot:hover {
-    background-color: rgba(60, 56, 53, 0.1);
-    transform: scale(1.05);
+.gold .icon-circle {
+    color: var(--texto-secundario);
+
 }
-
-.btn-menu-dot svg {
-    fill: var(--texto-primario);
-}
-
-
 
 /* ─── HERO ───────────────────────────────────────────────── */
 
@@ -318,12 +352,14 @@ img {
     border-radius: 4px;
     opacity: 0;
     transform: scale(1.03);
+    transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
 .hero-media-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    /* 2. Ajuste de posição para mobile (centralizado costuma funcionar melhor) */
     object-position: center 35%;
     filter: grayscale(10%) contrast(102%);
 }
@@ -363,7 +399,7 @@ img {
 
 /* avalicoes */
 .testimonials-section {
-    min-height: 60vh;
+    min-height: 20vh;
     padding: 4rem 2rem;
     margin: 0 auto;
 }
@@ -656,13 +692,15 @@ img {
 
 
 .about p {
-    font-size: 1.5vw;
+    font-size: 1.2rem;
     letter-spacing: -0.5px;
     line-height: 1;
-    color: var(--texto-secundario);
+    color: #504d4a;
     font-weight: 200;
     text-indent: 7rem;
-
+    max-width: 98%;
+    text-align: justify;
+    line-height: 1.2;
 }
 
 .quote-card {
@@ -674,14 +712,8 @@ img {
     overflow: hidden;
 }
 
-.quote-card h1 {
-    font-size: 3.2vw;
-    font-weight: 400;
-    line-height: 1;
-    color: var(--texto-primario);
 
 
-}
 
 .quote-mark {
     position: absolute;
@@ -698,16 +730,16 @@ img {
 .quote-text {
     position: relative;
     z-index: 1;
-    font-size: 15px;
-    line-height: 1.7;
     color: #111;
     margin: 0 0 1.2rem;
 
 }
 
 .quote-author {
-    font-size: 13px;
+    font-size: 15px;
     color: var(--texto-primario);
+    font-weight: 400;
+    text-align: end;
 }
 
 /* ─── BEFORE / AFTER ─────────────────────────────────────── */
@@ -733,9 +765,7 @@ img {
     width: 70%;
 }
 
-.ba-left>div {
-    margin-top: vh;
-}
+
 
 .ba-tag a {
     font-size: 13px;
@@ -744,7 +774,8 @@ img {
     letter-spacing: -0.01em;
 }
 
-.ba-title {
+.ba-title,
+.about h1 {
     font-size: clamp(32px, 3.8vw, 56px);
     font-weight: 400;
     line-height: 1;
@@ -802,14 +833,25 @@ img {
 
 @media (max-width: 1024px) {
 
+
+    .ba-container,
     .about {
         grid-template-columns: 1fr;
+        gap: 40px;
 
     }
 
-    .ba-container {
-        grid-template-columns: 1fr;
-        gap: 40px;
+    .about p {
+        padding: 2rem 0;
+
+    }
+
+    .quote-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding-left: 0rem;
+        position: relative;
     }
 
     .ba-right {
@@ -827,15 +869,7 @@ img {
     }
 }
 
-@media (max-width: 480px) {
-    .before-after-section {
-        padding: 60px 20px;
-    }
 
-    .ba-image-wrapper {
-        aspect-ratio: 4 / 3;
-    }
-}
 
 /* ─── CONTATO ────────────────────────────────────────────── */
 
@@ -1018,9 +1052,9 @@ img {
     gap: 12px;
 }
 
-.mobile-drawer {
+/* .mobile-drawer {
     display: none;
-}
+} */
 
 .icon-circle {
     display: inline-flex;
@@ -1092,13 +1126,27 @@ h2,
     }
 
     .hero {
+        /* min-height: 80vh; */
         padding: 0 20px 40px 20px;
+
     }
+
+ .hero-media-wrapper {
+        aspect-ratio: 4 / 3;
+        object-position: left;
+    }
+
 
     .hero-support-line {
         font-size: 11px;
     }
 
+    .btn-menu-dot {
+
+
+        top: 20px;
+        right: 20px;
+    }
 
     .clinic-prices-section {
         gap: 2rem;
@@ -1132,17 +1180,17 @@ h2,
 
 @media (max-width: 768px) {
 
-  .mobile-drawer {
+
+
+    .mobile-drawer {
         display: block;
     }
 
-    .nav-links {
+    .nav-address {
         display: none;
     }
 
-    .btn-book {
-        display: none;
-    }
+
 
     .navbar {
         padding: 1.5rem 20px;
@@ -1170,9 +1218,10 @@ h2,
     }
 
     .hero-media-wrapper {
-        aspect-ratio: 16 / 10;
-    }
+        min-height: 60vh;
 
+    }
+  
     .clinic-prices-section {
         flex-direction: column;
         align-items: stretch;
@@ -1195,7 +1244,8 @@ h2,
 
     .clinic-prices-section,
     .clinic-contact-section,
-    .testimonials-section {
+    .testimonials-section, 
+.before-after-section, .about {
         padding: 6rem 20px;
     }
 
@@ -1215,12 +1265,11 @@ h2,
         flex-direction: column;
         gap: 1rem;
         margin: 1.5rem;
+        padding-top: 2rem;
+
 
     }
 
-    .stats-div p {
-        font-size: 7vw;
-    }
 
 
     .stats-div span {
@@ -1239,7 +1288,8 @@ h2,
         padding-right: 20px;
     }
 
-    .ba-title {
+    .ba-title,
+    .about h1 {
         font-size: 32px;
         margin-bottom: 20px;
     }
@@ -1255,6 +1305,6 @@ h2,
 
     .branding-subtext {
         flex-direction: column;
-        gap: 50px;
+
     }
 }
