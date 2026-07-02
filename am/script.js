@@ -1,4 +1,7 @@
 // ============================================================
+
+
+
 // SCROLL ANIMATIONS — direcionais, leves, com propósito
 // ============================================================
 (function () {
@@ -284,40 +287,93 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
     // ---------- Carrossel: Testimonials autoplay infinito + pausa no hover ----------
+    // ---------- Testimonials: scroll horizontal pinado (o scroll vertical "puxa" os cards) ----------
+(() => {
     try {
         const grid = document.querySelector('.testimonials-grid');
+        const cards = Array.from(document.querySelectorAll('.testimonial-card'));
+        const section = document.querySelector('.testimonials-section');
+        const nav = document.querySelector('.testimonials-nav');
+        if (!grid || !cards.length || !section || !nav) return;
 
-        if (grid) {
-            const cards = Array.from(grid.children);
-            if (cards.length > 0) {
-                cards.forEach(card => {
-                    const clone = card.cloneNode(true);
-                    grid.appendChild(clone);
-                });
+        const prevBtn = nav.querySelector('.nav-btn[aria-label="Anterior"]');
+        const nextBtn = nav.querySelector('.nav-btn[aria-label="Próximo"]');
+        if (!prevBtn || !nextBtn) return;
 
-                let scrollAmount = 0;
-                const speed = 1;
-                let isPaused = false;
+        // ativa o card mais próximo do centro
+        const setActiveCard = () => {
+            const gridRect = grid.getBoundingClientRect();
+            const center = gridRect.left + gridRect.width / 2;
+            let closest = null;
+            let closestDist = Infinity;
 
-                const autoPlay = () => {
-                    if (!isPaused) {
-                        scrollAmount += speed;
-                        if (scrollAmount >= grid.scrollWidth / 2) scrollAmount = 0;
-                        grid.scrollLeft = scrollAmount;
-                    }
-                    requestAnimationFrame(autoPlay);
-                };
+            cards.forEach(card => {
+                const r = card.getBoundingClientRect();
+                const cardCenter = r.left + r.width / 2;
+                const dist = Math.abs(cardCenter - center);
+                if (dist < closestDist) { closestDist = dist; closest = card; }
+                card.classList.toggle('is-active', dist < r.width / 2);
+            });
 
-                requestAnimationFrame(autoPlay);
+            return closest;
+        };
 
-                grid.addEventListener('mouseenter', () => { isPaused = true; });
-                grid.addEventListener('mouseleave', () => {
-                    scrollAmount = grid.scrollLeft;
-                    isPaused = false;
-                });
-            }
-        }
+        const scrollToCard = (index) => {
+            const card = cards[index];
+            if (!card) return;
+            const gridRect = grid.getBoundingClientRect();
+            const cardRect = card.getBoundingClientRect();
+            const offset = (cardRect.left + cardRect.width / 2) - (gridRect.left + gridRect.width / 2);
+            grid.scrollBy({ left: offset, behavior: 'smooth' });
+        };
+
+        const updateUI = () => {
+            const active = setActiveCard();
+            const activeIndex = cards.indexOf(active);
+            prevBtn.disabled = activeIndex <= 0;
+            nextBtn.disabled = activeIndex >= cards.length - 1;
+        };
+
+        prevBtn.addEventListener('click', () => {
+            const active = cards.find(c => c.classList.contains('is-active'));
+            const i = Math.max(0, cards.indexOf(active) - 1);
+            scrollToCard(i);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            const active = cards.find(c => c.classList.contains('is-active'));
+            const i = Math.min(cards.length - 1, cards.indexOf(active) + 1);
+            scrollToCard(i);
+        });
+
+        let scrollTimeout;
+        grid.addEventListener('scroll', () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(updateUI, 50);
+        }, { passive: true });
+
+        // arrastar com mouse no desktop
+        let isDown = false, startX = 0, scrollStart = 0;
+        grid.addEventListener('mousedown', (e) => {
+            isDown = true;
+            grid.classList.add('is-dragging');
+            startX = e.pageX;
+            scrollStart = grid.scrollLeft;
+        });
+        window.addEventListener('mouseup', () => {
+            isDown = false;
+            grid.classList.remove('is-dragging');
+        });
+        window.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            grid.scrollLeft = scrollStart - (e.pageX - startX);
+        });
+
+        window.addEventListener('resize', updateUI);
+        updateUI();
     } catch (e) {}
+})();
 
 });
 
@@ -401,4 +457,11 @@ function gerarLinkWhatsApp(event) {
     } else {
         initMobileMenu();
     }
+
+
 })();
+
+
+
+
+

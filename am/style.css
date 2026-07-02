@@ -8,8 +8,6 @@
     --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-
-
 .hero-support-line .support-item,
 .stats-div,
 .about .team-card,
@@ -20,11 +18,16 @@
 .testimonial-card,
 .prices-header,
 .price-item,
-.contact-form-side h2, .contact-subtitle, .clinic-form .form-group, .clinic-form .form-checkbox-group, .btn-consultation,
+.contact-form-side h2,
+.contact-subtitle,
+.clinic-form .form-group,
+.clinic-form .form-checkbox-group,
+.btn-consultation,
 .contact-image-side,
 .footer-branding {
     will-change: transform, opacity;
 }
+
 *,
 *::before,
 *::after {
@@ -52,10 +55,6 @@ img {
     border-radius: 4px;
     filter: grayscale(15%);
 }
-
-/* section, footer,body  {
-    max-width: 1740px;
-} */
 
 /* ─── NAVBAR ─────────────────────────────────────────────── */
 
@@ -152,12 +151,10 @@ img {
 }
 
 .mobile-drawer {
-    /* display: none; */
     position: fixed;
     inset: 0;
     z-index: 300;
     pointer-events: none;
-    /* não bloqueia cliques quando fechado */
 }
 
 .mobile-drawer.is-open {
@@ -172,7 +169,6 @@ img {
     opacity: 0;
     transition: opacity 0.3s ease;
     z-index: 1;
-    /* atrás do painel */
 }
 
 .mobile-drawer__panel {
@@ -190,7 +186,6 @@ img {
     transform: translateX(100%);
     transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 2;
-    /* na frente do backdrop */
 }
 
 .mobile-drawer.is-open .mobile-drawer__backdrop {
@@ -201,18 +196,10 @@ img {
     transform: translateX(0);
 }
 
-/* Estado aberto */
-.mobile-drawer.is-open .mobile-drawer__backdrop {
-    opacity: 1;
-}
-
-.mobile-drawer.is-open .mobile-drawer__panel {
-    transform: translateX(0);
-}
 #mob {
     margin-top: 100%;
 }
-/* Links do drawer */
+
 .mobile-drawer__links {
     display: flex;
     flex-direction: column;
@@ -232,7 +219,6 @@ img {
     color: #947360;
 }
 
-/* CTA dentro do drawer */
 .mobile-drawer__cta {
     display: inline-block;
     font-size: 11px;
@@ -247,9 +233,11 @@ img {
     text-align: center;
     transition: background 0.2s;
 }
-#mobileDrawer > div.mobile-drawer__panel > div.social-icons.gold {
+
+#mobileDrawer>div.mobile-drawer__panel>div.social-icons.gold {
     justify-items: flex-end;
 }
+
 .mobile-drawer__cta:hover {
     background-color: #7A665A;
 }
@@ -259,18 +247,14 @@ img {
     flex-direction: row;
     align-items: center;
     width: 100%;
-
 }
 
 .btn-menu-dot {
-
-
     position: fixed;
     width: 40px;
     height: 40px;
     top: 2rem;
     right: 2rem;
-
     border-radius: 50%;
     background-color: rgba(150, 126, 112, 0.2);
     backdrop-filter: blur(8px);
@@ -289,8 +273,6 @@ img {
 
 .btn-menu-dot.is-floating {
     transition: var(--transition-smooth);
-
-
 }
 
 .btn-menu-dot.is-floating svg {
@@ -299,7 +281,6 @@ img {
 
 .gold .icon-circle {
     color: var(--texto-secundario);
-
 }
 
 /* ─── HERO ───────────────────────────────────────────────── */
@@ -316,7 +297,6 @@ img {
     margin-top: -10px;
     display: flex;
     padding: 2rem 0;
-
 }
 
 .hero-title {
@@ -359,13 +339,11 @@ img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* 2. Ajuste de posição para mobile (centralizado costuma funcionar melhor) */
     object-position: center 35%;
     filter: grayscale(10%) contrast(102%);
 }
 
-
-/* stats */
+/* ─── STATS ──────────────────────────────────────────────── */
 
 .stats {
     padding: 60px 40px;
@@ -373,8 +351,6 @@ img {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-
-
 }
 
 .stats-div {
@@ -382,7 +358,6 @@ img {
     flex-direction: column;
     align-items: center;
     gap: 0.6rem;
-
 }
 
 .stats-div p {
@@ -393,137 +368,184 @@ img {
     text-transform: uppercase;
     color: var(--texto-secundario);
     font-size: 0.75rem;
-
 }
-
-
-/* avalicoes */
-.testimonials-section {
-    min-height: 20vh;
-    padding: 4rem 2rem;
-    margin: 0 auto;
-}
-
-
-
-/* ==========================================================================
-       CABEÇALHO (.testimonials-header)
-       ========================================================================== */
-
-.testimonials-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
-    margin-bottom: 40px;
-
-}
-
-.testimonials-title {
-    font-size: 3.2rem;
-    font-weight: 400;
-    line-height: 1.2;
-    color: var(--texto-primario);
-
-}
-
-
-.testimonials-nav-group {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    max-width: 500px;
-}
-
-.testimonials-support-text {
-    font-size: 1rem;
-    line-height: 1.5;
-    color: var(--texto-secundario);
-    text-align: center;
-}
-
-.testimonials-actions {
-    display: flex;
-    gap: 12px;
-}
-
 
 .btn-nav svg,
-.ba-navigation svg {
+.ba-navigation svg,
+.testimonials-nav svg {
     width: 20px;
     height: 20px;
     fill: currentColor;
 }
 
-/* ==========================================================================
-       GRID / CARROSSEL RESPONSIVO (.testimonials-grid)
-       ========================================================================== */
+/* ─── AVALIAÇÕES (TESTIMONIALS) ──────────────────────────── */
+
+.testimonials-section {
+    padding: 6rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonials-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 20px;
+    margin-bottom: 40px;
+}
+
+.testimonials-title {
+    font-size: 3.2rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+    line-height: 0.95;
+    color: var(--texto-primario);
+    margin: 0;
+}
+
+.testimonials-link {
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--texto-primario);
+    text-decoration: none;
+    padding-bottom: 2px;
+    white-space: nowrap;
+    transition: opacity 0.3s ease;
+}
+
+.testimonials-link:hover {
+    opacity: 0.6;
+}
+
+.testimonials-nav {
+    display: flex;
+    gap: 2rem;
+}
+
 .testimonials-grid {
     display: flex;
-    /* Mudamos para flex para facilitar o efeito de loop infinito */
-    gap: 24px;
+    flex-wrap: nowrap;
+    gap: 1.5rem;
     overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 20px 0 30px;
+    -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    /* Oculta barra no Firefox */
-    padding-bottom: 10px;
+    cursor: grab;
+}
+
+.testimonials-grid.is-dragging {
+    cursor: grabbing;
+    scroll-behavior: auto;
 }
 
 .testimonials-grid::-webkit-scrollbar {
     display: none;
-    /* Oculta barra no Chrome/Safari */
 }
 
-/* Garante que os cards mantenham o tamanho correto no Flexbox */
 .testimonial-card {
-    flex: 0 0 calc((100% - (24px * 2)) / 3);
-    /* mobile- */
-    border-radius: 4px;
-    padding: 32px;
+    flex: 0 0 300px;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-    gap: 32px;
-    min-height: 320px;
-    /* NOVAS PROPRIEDADES PARA O EFEITO */
-    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease;
-    position: relative;
-    z-index: 1;
-    cursor: pointer;
+    cursor: default;
+    scroll-snap-align: start;
+    opacity: 1;
+    max-width: 600px;
+    transform: scale(1);
+    transition: opacity 0.45s ease, transform 0.45s ease;
 }
 
-/* Efeito Hover no Card */
-.testimonial-card:hover {
-    z-index: 10;
+.testimonial-card--hero {
+    flex: 0 0 300px; /* iguala ao resto no modo carrossel */
 }
 
-/* Citação */
-.testimonial-card-quote {
-    font-size: 1rem;
-    line-height: 1.4;
+.testimonial-card.is-active {
+    opacity: 1;
+    transform: scale(1);
+    filter: none;
+}
+
+.testimonial-media {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+}
+
+.testimonial-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.testimonial-body {
+    padding-top: 16px;
+}
+
+.testimonial-card-quote p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--texto-primario);
+    margin: 0 0 14px;
+}
+
+.testimonial-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px solid #94736055;
+    padding-top: 10px;
+}
+
+.author-name {
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    text-transform: uppercase;
     color: var(--texto-primario);
 }
 
-/* Rodapé do Card */
-.testimonial-card-footer {
-    font-size: 1.6rem;
-    color: #94736085;
+.author-procedure {
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--texto-secundario);
 }
-
-
 
 .author-company::before {
     content: " — ";
 }
 
+/* selo de avaliação */
+.testimonials-rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 28px;
+}
 
-/* Container Principal */
+.rating-stars {
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    color: var(--texto-secundario);
+}
+
+.rating-text {
+    font-size: 0.85rem;
+    color: var(--texto-secundario);
+}
+
+/* ─── TEAM ───────────────────────────────────────────────── */
+
 .team-section {
-
     margin: 0 auto;
     padding: 60px 2rem;
 }
 
-/* Cabeçalho Alinhado */
 .team-header {
     display: flex;
     justify-content: space-between;
@@ -543,21 +565,17 @@ img {
     max-width: 45%;
 }
 
-/* Grid Responsivo (Mobile First) */
 .team-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
-
 }
 
-/* Card Individual */
 .team-card {
     display: flex;
     flex-direction: column;
 }
 
-/* Container da Imagem para posicionar o Badge */
 .team-card .image-container {
     position: relative;
     width: 100%;
@@ -568,27 +586,22 @@ img {
 .team-card .image-container img {
     width: 100%;
     height: 100%;
-
     object-fit: cover;
-    /* Garante que a foto preencha o espaço sem distorcer */
     display: block;
 }
 
-/* Badge (Etiqueta dentro da foto) */
 .team-card .badge {
     position: absolute;
     bottom: 15px;
     left: 15px;
     background-color: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(4px);
-    /* Efeito sutil de vidro fosco */
     padding: 6px 12px;
     border-radius: 20px;
     font-size: 0.75rem;
     color: #333;
     font-weight: 500;
     pointer-events: none;
-    /* Evita interferir no clique */
 }
 
 .nav-buttons {
@@ -615,7 +628,6 @@ img {
     transform: scale(1.05);
     opacity: 0.85;
 }
-
 
 /* ─── PREÇOS ─────────────────────────────────────────────── */
 
@@ -656,7 +668,6 @@ img {
     grid-template-columns: 1fr 1fr;
     column-gap: 2rem;
     row-gap: 0;
-
 }
 
 .price-item {
@@ -681,26 +692,22 @@ img {
     color: var(--texto-secundario);
 }
 
-/**/
+/* ─── ABOUT ──────────────────────────────────────────────── */
 
 .about {
     padding: 6rem 2rem;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-
 }
 
-
 .about p {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     letter-spacing: -0.5px;
-    line-height: 1;
-    color: #504d4a;
-    font-weight: 200;
+    line-height: 1.2;
+    color: #504d4ad6;
     text-indent: 7rem;
     max-width: 98%;
     text-align: justify;
-    line-height: 1.2;
 }
 
 .quote-card {
@@ -711,9 +718,6 @@ img {
     position: relative;
     overflow: hidden;
 }
-
-
-
 
 .quote-mark {
     position: absolute;
@@ -732,7 +736,6 @@ img {
     z-index: 1;
     color: #111;
     margin: 0 0 1.2rem;
-
 }
 
 .quote-author {
@@ -746,7 +749,6 @@ img {
 
 .before-after-section {
     padding: 6rem 2rem;
-
 }
 
 .ba-container {
@@ -764,8 +766,6 @@ img {
     gap: 28px;
     width: 70%;
 }
-
-
 
 .ba-tag a {
     font-size: 13px;
@@ -794,7 +794,8 @@ img {
     margin-top: 2rem;
 }
 
-.ba-navigation {
+.ba-navigation,
+.testimonials-nav {
     display: flex;
     gap: 12px;
     margin-top: 8px;
@@ -829,47 +830,6 @@ img {
 .ba-img.active {
     opacity: 1;
 }
-
-
-@media (max-width: 1024px) {
-
-
-    .ba-container,
-    .about {
-        grid-template-columns: 1fr;
-        gap: 40px;
-
-    }
-
-    .about p {
-        padding: 2rem 0;
-
-    }
-
-    .quote-card {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding-left: 0rem;
-        position: relative;
-    }
-
-    .ba-right {
-        flex-direction: column;
-
-        gap: 1rem;
-    }
-
-    .ba-left {
-        width: 100%;
-    }
-
-    .ba-description {
-        max-width: 100%;
-    }
-}
-
-
 
 /* ─── CONTATO ────────────────────────────────────────────── */
 
@@ -911,8 +871,7 @@ img {
     color: #e53935;
     font-size: 0.8rem;
     margin-top: 0.5rem;
-    min-height: 1em;
-    /* evita layout shift */
+    min-height: 1em; /* evita layout shift */
 }
 
 .clinic-form label {
@@ -1003,7 +962,6 @@ img {
     object-position: center;
 }
 
-
 /* ─── FOOTER ─────────────────────────────────────────────── */
 
 .clinic-footer {
@@ -1052,10 +1010,6 @@ img {
     gap: 12px;
 }
 
-/* .mobile-drawer {
-    display: none;
-} */
-
 .icon-circle {
     display: inline-flex;
     align-items: center;
@@ -1064,14 +1018,11 @@ img {
     height: 40px;
     border-radius: 50%;
     color: #fff;
-    /* Cor do ícone */
     text-decoration: none;
     font-size: 18px;
-    /* Tamanho do ícone */
     transition: 0.3s;
 }
 
-/* Efeito opcional ao passar o mouse */
 .icon-circle:hover {
     opacity: 0.8;
 }
@@ -1106,7 +1057,36 @@ h2,
 /* ─── RESPONSIVIDADE ─────────────────────────────────────── */
 
 @media (max-width: 1024px) {
+    .about {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
 
+    .about p {
+        padding: 2rem 0;
+    }
+
+    .quote-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding-left: 0rem;
+        position: relative;
+    }
+
+    .ba-right {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .ba-left {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .ba-description {
+        max-width: 100%;
+    }
 
     .team-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1115,7 +1095,6 @@ h2,
     .team-header h2 {
         font-size: 2.5rem;
     }
-
 
     .navbar {
         padding: 20px;
@@ -1126,24 +1105,19 @@ h2,
     }
 
     .hero {
-        /* min-height: 80vh; */
         padding: 0 20px 40px 20px;
-
     }
 
- .hero-media-wrapper {
+    .hero-media-wrapper {
         aspect-ratio: 4 / 3;
         object-position: left;
     }
-
 
     .hero-support-line {
         font-size: 11px;
     }
 
     .btn-menu-dot {
-
-
         top: 20px;
         right: 20px;
     }
@@ -1154,7 +1128,6 @@ h2,
 
     .prices-header {
         max-width: 56%;
-
     }
 
     .prices-container {
@@ -1168,19 +1141,40 @@ h2,
     .contact-container {
         flex-direction: column-reverse;
         gap: 50px;
-
     }
 
     .contact-form-side {
         width: 100%;
     }
-
-
 }
 
 @media (max-width: 768px) {
+    .ba-container,
+    .about {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
 
+    .about p {
+        padding: 2rem 0;
+    }
 
+    .quote-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding-left: 0rem;
+        position: relative;
+    }
+
+    .ba-right {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .ba-description {
+        max-width: 100%;
+    }
 
     .mobile-drawer {
         display: block;
@@ -1190,17 +1184,9 @@ h2,
         display: none;
     }
 
-
-
     .navbar {
         padding: 1.5rem 20px;
     }
-
-    .testimonial-card {
-        flex: 0 0 calc(100% - 40px);
-        /* Mobile */
-    }
-
 
     .team-grid {
         grid-template-columns: 1fr;
@@ -1219,9 +1205,8 @@ h2,
 
     .hero-media-wrapper {
         min-height: 60vh;
-
     }
-  
+
     .clinic-prices-section {
         flex-direction: column;
         align-items: stretch;
@@ -1244,8 +1229,9 @@ h2,
 
     .clinic-prices-section,
     .clinic-contact-section,
-    .testimonials-section, 
-.before-after-section, .about {
+    .testimonials-section,
+    .before-after-section,
+    .about {
         padding: 6rem 20px;
     }
 
@@ -1254,7 +1240,6 @@ h2,
     }
 
     .stats {
-
         display: grid;
         grid-template-columns: 1fr 1fr;
         padding: 0;
@@ -1266,22 +1251,29 @@ h2,
         gap: 1rem;
         margin: 1.5rem;
         padding-top: 2rem;
-
-
     }
-
-
 
     .stats-div span {
         text-transform: uppercase;
         color: var(--texto-secundario);
         font-size: 0.65rem;
+    }
 
+    .testimonials-grid {
+        padding: 20px 10vw 30px;
+    }
+
+    .testimonial-card,
+    .testimonial-card--hero {
+        flex-basis: 260px;
+    }
+
+    .testimonials-title {
+        font-size: 2.2rem;
     }
 }
 
 @media (max-width: 480px) {
-
     .clinic-prices-section,
     .clinic-contact-section {
         padding-left: 20px;
@@ -1298,13 +1290,27 @@ h2,
         align-items: start;
     }
 
-
     .footer-grid {
         grid-template-columns: 1fr;
     }
 
     .branding-subtext {
         flex-direction: column;
-
     }
+}
+
+/* Ajuste fino do carrossel de depoimentos em telas muito pequenas */
+.testimonials-grid {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.testimonials-grid::-webkit-scrollbar {
+    display: none;
+}
+
+.testimonial-card,
+.testimonial-card--hero {
+    flex: 0 0 82%;
 }
