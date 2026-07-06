@@ -1,12 +1,12 @@
 // ============================================================
-
-
-
 // SCROLL ANIMATIONS — direcionais, leves, com propósito
 // ============================================================
 (function () {
     if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
     gsap.registerPlugin(ScrollTrigger);
+
+    // MELHOR PRÁTICA MOBILE: Impede que a barra do navegador recalculando a altura da tela faça a animação "dançar"
+    ScrollTrigger.config({ ignoreMobileResize: true });
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduceMotion) return; // respeita a preferência do usuário, não anima nada
@@ -14,7 +14,7 @@
     const mm = gsap.matchMedia();
     gsap.defaults({ ease: 'power3.out' });
 
-    // ---------- HERO (Versão Robusta Bloco Único) ----------
+    // ---------- HERO ----------
     const initHero = () => {
         try {
             const title = document.querySelector('.hero-title');
@@ -22,33 +22,21 @@
             const supportLine = document.querySelector('.hero-support-line');
             const mediaWrapper = document.querySelector('.hero-media-wrapper');
 
-            // Aplica o estado inicial ocultando a linha inteira de uma vez
             if (supportLine) {
                 gsap.set(supportLine, { opacity: 0, y: 14 });
             }
 
             const tlHero = gsap.timeline({ defaults: { ease: 'power4.out' } });
 
-            // 1. Anima o título principal se ele existir
             if (title) {
                 tlHero.fromTo(title, { y: '100%' }, { y: '0%', duration: 1.5, delay: 0.15 });
             }
-            
-            // 2. Anima a navbar se ela existir
             if (navbar) {
                 tlHero.fromTo(navbar, { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 1 }, title ? '-=1.0' : 0);
             }
-
-            // 3. Anima a linha de suporte inteira como um único bloco (Evita travamentos)
             if (supportLine) {
-                tlHero.to(supportLine, {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.8
-                }, '-=0.7');
+                tlHero.to(supportLine, { opacity: 1, y: 0, duration: 0.8 }, '-=0.7');
             }
-
-            // 4. Anima o banner/imagem de fundo
             if (mediaWrapper) {
                 tlHero.fromTo(mediaWrapper, { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 1.4, ease: 'power3.out' }, '-=0.6');
             }
@@ -57,11 +45,10 @@
         }
     };
 
-    // Garante que o Hero espere o HTML carregar perfeitamente
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initHero);
-    } else {
+    if (document.readyState === 'complete') {
         initHero();
+    } else {
+        window.addEventListener('load', initHero);
     }
 
     // ---------- STATS: escada esquerda → direita ----------
@@ -70,19 +57,19 @@
             gsap.set('.stats-div', { opacity: 0, y: 36 });
             gsap.to('.stats-div', {
                 opacity: 1, y: 0, duration: 0.9, stagger: 0.15, ease: 'power3.out',
-                scrollTrigger: { trigger: '.stats', start: 'top 80%' }
+                scrollTrigger: { trigger: '.stats', start: 'top 80%', toggleActions: 'play reverse play reverse' }
             });
         });
         mm.add('(max-width: 768px)', () => {
             gsap.set('.stats-div', { opacity: 0, y: 20 });
             gsap.to('.stats-div', {
                 opacity: 1, y: 0, duration: 0.7, stagger: 0.1,
-                scrollTrigger: { trigger: '.stats', start: 'top 85%' }
+                scrollTrigger: { trigger: '.stats', start: 'top 85%', toggleActions: 'play reverse play reverse' }
             });
         });
     } catch (e) {}
 
-    // ---------- ABOUT: CORRIGIDO (Animações movidas para dentro do MatchMedia) ----------
+    // ---------- ABOUT ----------
     try {
         mm.add('(min-width: 1025px)', () => {
             gsap.set('.about .team-card', { opacity: 0, x: -60 });
@@ -90,11 +77,11 @@
 
             gsap.to('.about .team-card', {
                 opacity: 1, x: 0, duration: 1.1,
-                scrollTrigger: { trigger: '.about', start: 'top 75%' }
+                scrollTrigger: { trigger: '.about', start: 'top 75%', toggleActions: 'play reverse play reverse' }
             });
             gsap.to('.about .quote-card', {
                 opacity: 1, x: 0, duration: 1.1, delay: 0.15,
-                scrollTrigger: { trigger: '.about', start: 'top 75%' }
+                scrollTrigger: { trigger: '.about', start: 'top 75%', toggleActions: 'play reverse play reverse' }
             });
         });
 
@@ -104,16 +91,16 @@
 
             gsap.to('.about .team-card', {
                 opacity: 1, y: 0, duration: 1.1,
-                scrollTrigger: { trigger: '.about', start: 'top 75%' }
+                scrollTrigger: { trigger: '.about', start: 'top 75%', toggleActions: 'play reverse play reverse' }
             });
             gsap.to('.about .quote-card', {
                 opacity: 1, y: 0, duration: 1.1, delay: 0.15,
-                scrollTrigger: { trigger: '.about', start: 'top 75%' }
+                scrollTrigger: { trigger: '.about', start: 'top 75%', toggleActions: 'play reverse play reverse' }
             });
         });
     } catch (e) {}
 
-    // ---------- BEFORE/AFTER: texto esquerda, imagem direita + scale ----------
+    // ---------- BEFORE/AFTER ----------
     try {
         mm.add('(min-width: 1025px)', () => {
             gsap.set('.ba-left', { opacity: 0, x: -50 });
@@ -121,11 +108,11 @@
 
             gsap.to('.ba-left', {
                 opacity: 1, x: 0, duration: 1,
-                scrollTrigger: { trigger: '.before-after-section', start: 'top 75%' }
+                scrollTrigger: { trigger: '.before-after-section', start: 'top 75%', toggleActions: 'play reverse play reverse' }
             });
             gsap.to('.ba-right', {
                 opacity: 1, x: 0, scale: 1, duration: 1.1, delay: 0.1,
-                scrollTrigger: { trigger: '.before-after-section', start: 'top 75%' }
+                scrollTrigger: { trigger: '.before-after-section', start: 'top 75%', toggleActions: 'play reverse play reverse' }
             });
         });
         
@@ -135,95 +122,91 @@
 
             gsap.to('.ba-left', {
                 opacity: 1, y: 0, duration: 1,
-                scrollTrigger: { trigger: '.before-after-section', start: 'top 75%' }
+                scrollTrigger: { trigger: '.before-after-section', start: 'top 75%', toggleActions: 'play reverse play reverse' }
             });
             gsap.to('.ba-right', {
                 opacity: 1, y: 0, scale: 1, duration: 1.1, delay: 0.1,
-                scrollTrigger: { trigger: '.before-after-section', start: 'top 75%' }
+                scrollTrigger: { trigger: '.before-after-section', start: 'top 75%', toggleActions: 'play reverse play reverse' }
             });
         });
     } catch (e) {}
 
-    // ---------- TESTIMONIALS: header sobe, cards entram da direita em cascata ----------
+    // ---------- TESTIMONIALS (ESTABILIZADO PARA AMBOS E SINALIZANDO OS BOTÕES) ----------
     try {
         gsap.set('.testimonials-header', { opacity: 0, y: 24 });
         gsap.to('.testimonials-header', {
             opacity: 1, y: 0, duration: 0.9,
-            scrollTrigger: { trigger: '.testimonials-section', start: 'top 80%' }
+            scrollTrigger: { trigger: '.testimonials-section', start: 'top 80%', toggleActions: 'play reverse play reverse' }
         });
 
-        mm.add('(min-width: 769px)', () => {
-            gsap.set('.testimonial-card', { opacity: 0, x: 50 });
-            gsap.to('.testimonial-card', {
-                opacity: 1, x: 0, duration: 0.8, stagger: 0.1,
-                scrollTrigger: { trigger: '.testimonials-grid', start: 'top 85%' }
-            });
-        });
-        mm.add('(max-width: 768px)', () => {
-            gsap.set('.testimonial-card', { opacity: 0, y: 24 });
-            gsap.to('.testimonial-card', {
-                opacity: 1, y: 0, duration: 0.7, stagger: 0.08,
-                scrollTrigger: { trigger: '.testimonials-grid', start: 'top 88%' }
-            });
+        gsap.set('.testimonials-grid', { opacity: 0, y: 15 });
+        gsap.to('.testimonials-grid', {
+            opacity: 1, y: 0, duration: 0.8,
+            scrollTrigger: { 
+                trigger: '.testimonials-section', 
+                start: 'top 75%', 
+                toggleActions: 'play reverse play reverse',
+                // Sempre que reativar o elemento na tela, avisa o slider para recalcular as dimensões e ligar os botões
+                onEnter: () => window.dispatchEvent(new Event('resize')),
+                onEnterBack: () => window.dispatchEvent(new Event('resize'))
+            }
         });
     } catch (e) {}
 
-    // ---------- PREÇOS: header entra, lista revela item a item ----------
+    // ---------- PREÇOS ----------
     try {
         gsap.set('.prices-header', { opacity: 0, x: -30 });
         gsap.to('.prices-header', {
             opacity: 1, x: 0, duration: 0.9,
-            scrollTrigger: { trigger: '.clinic-prices-section', start: 'top 78%' }
+            scrollTrigger: { trigger: '.clinic-prices-section', start: 'top 78%', toggleActions: 'play reverse play reverse' }
         });
 
         gsap.set('.price-item', { opacity: 0, y: 18 });
         gsap.to('.price-item', {
             opacity: 1, y: 0, duration: 0.6, stagger: 0.07,
-            scrollTrigger: { trigger: '.prices-grid', start: 'top 85%' }
+            scrollTrigger: { trigger: '.prices-grid', start: 'top 85%', toggleActions: 'play reverse play reverse' }
         });
     } catch (e) {}
 
-    // ---------- CONTATO: form em cascata, imagem da direita ----------
+    // ---------- CONTATO ----------
     try {
         gsap.set('.contact-form-side h2, .contact-subtitle, .clinic-form .form-group, .clinic-form .form-checkbox-group, .btn-consultation',
             { opacity: 0, y: 20 });
         gsap.to('.contact-form-side h2, .contact-subtitle, .clinic-form .form-group, .clinic-form .form-checkbox-group, .btn-consultation', {
             opacity: 1, y: 0, duration: 0.7, stagger: 0.08,
-            scrollTrigger: { trigger: '.clinic-contact-section', start: 'top 78%' }
+            scrollTrigger: { trigger: '.clinic-contact-section', start: 'top 78%', toggleActions: 'play reverse play reverse' }
         });
 
         mm.add('(min-width: 1025px)', () => {
             gsap.set('.contact-image-side', { opacity: 0, x: 40 });
             gsap.to('.contact-image-side', {
                 opacity: 1, x: 0, duration: 1,
-                scrollTrigger: { trigger: '.clinic-contact-section', start: 'top 78%' }
+                scrollTrigger: { trigger: '.clinic-contact-section', start: 'top 78%', toggleActions: 'play reverse play reverse' }
             });
         });
         mm.add('(max-width: 1024px)', () => {
             gsap.set('.contact-image-side', { opacity: 0, y: 30 });
             gsap.to('.contact-image-side', {
                 opacity: 1, y: 0, duration: 0.9,
-                scrollTrigger: { trigger: '.clinic-contact-section', start: 'top 78%' }
+                scrollTrigger: { trigger: '.clinic-contact-section', start: 'top 78%', toggleActions: 'play reverse play reverse' }
             });
         });
     } catch (e) {}
 
-    // ---------- FOOTER: branding sobe suave ----------
+    // ---------- FOOTER ----------
     try {
         gsap.set('.footer-branding', { opacity: 0, y: 24 });
         gsap.to('.footer-branding', {
             opacity: 1, y: 0, duration: 1,
-            scrollTrigger: { trigger: '.footer-branding', start: 'top 90%' }
+            scrollTrigger: { trigger: '.footer-branding', start: 'top 90%', toggleActions: 'play reverse play reverse' }
         });
     } catch (e) {}
 })();
-
 
 // ============================================================
 // CONTADOR: Stats (números sobem quando entram na tela)
 // ============================================================
 window.addEventListener('DOMContentLoaded', () => {
-
     if (typeof gsap === 'undefined') return;
     if (typeof ScrollTrigger !== 'undefined') gsap.registerPlugin(ScrollTrigger);
 
@@ -266,7 +249,6 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     } catch (e) {}
 
-
     // ---------- Slider: Antes e Depois (B&A) ----------
     try {
         const imgs = document.querySelectorAll('.ba-img');
@@ -285,98 +267,92 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     } catch (e) {}
 
+    // ---------- Testimonials: scroll horizontal pinado ----------
+    (() => {
+        try {
+            const grid = document.querySelector('.testimonials-grid');
+            const cards = Array.from(document.querySelectorAll('.testimonial-card'));
+            const section = document.querySelector('.testimonials-section');
+            const nav = document.querySelector('.testimonials-nav');
+            if (!grid || !cards.length || !section || !nav) return;
 
-    // ---------- Carrossel: Testimonials autoplay infinito + pausa no hover ----------
-    // ---------- Testimonials: scroll horizontal pinado (o scroll vertical "puxa" os cards) ----------
-(() => {
-    try {
-        const grid = document.querySelector('.testimonials-grid');
-        const cards = Array.from(document.querySelectorAll('.testimonial-card'));
-        const section = document.querySelector('.testimonials-section');
-        const nav = document.querySelector('.testimonials-nav');
-        if (!grid || !cards.length || !section || !nav) return;
+            const prevBtn = nav.querySelector('.nav-btn[aria-label="Anterior"]');
+            const nextBtn = nav.querySelector('.nav-btn[aria-label="Próximo"]');
+            if (!prevBtn || !nextBtn) return;
 
-        const prevBtn = nav.querySelector('.nav-btn[aria-label="Anterior"]');
-        const nextBtn = nav.querySelector('.nav-btn[aria-label="Próximo"]');
-        if (!prevBtn || !nextBtn) return;
+            const setActiveCard = () => {
+                const gridRect = grid.getBoundingClientRect();
+                const center = gridRect.left + gridRect.width / 2;
+                let closest = null;
+                let closestDist = Infinity;
 
-        // ativa o card mais próximo do centro
-        const setActiveCard = () => {
-            const gridRect = grid.getBoundingClientRect();
-            const center = gridRect.left + gridRect.width / 2;
-            let closest = null;
-            let closestDist = Infinity;
+                cards.forEach(card => {
+                    const r = card.getBoundingClientRect();
+                    const cardCenter = r.left + r.width / 2;
+                    const dist = Math.abs(cardCenter - center);
+                    if (dist < closestDist) { closestDist = dist; closest = card; }
+                    card.classList.toggle('is-active', dist < r.width / 2);
+                });
 
-            cards.forEach(card => {
-                const r = card.getBoundingClientRect();
-                const cardCenter = r.left + r.width / 2;
-                const dist = Math.abs(cardCenter - center);
-                if (dist < closestDist) { closestDist = dist; closest = card; }
-                card.classList.toggle('is-active', dist < r.width / 2);
+                return closest;
+            };
+
+            const scrollToCard = (index) => {
+                const card = cards[index];
+                if (!card) return;
+                const gridRect = grid.getBoundingClientRect();
+                const cardRect = card.getBoundingClientRect();
+                const offset = (cardRect.left + cardRect.width / 2) - (gridRect.left + gridRect.width / 2);
+                grid.scrollBy({ left: offset, behavior: 'smooth' });
+            };
+
+            const updateUI = () => {
+                const active = setActiveCard();
+                const activeIndex = cards.indexOf(active);
+                prevBtn.disabled = activeIndex <= 0;
+                nextBtn.disabled = activeIndex >= cards.length - 1;
+            };
+
+            prevBtn.addEventListener('click', () => {
+                const active = cards.find(c => c.classList.contains('is-active'));
+                const i = Math.max(0, cards.indexOf(active) - 1);
+                scrollToCard(i);
             });
 
-            return closest;
-        };
+            nextBtn.addEventListener('click', () => {
+                const active = cards.find(c => c.classList.contains('is-active'));
+                const i = Math.min(cards.length - 1, cards.indexOf(active) + 1);
+                scrollToCard(i);
+            });
 
-        const scrollToCard = (index) => {
-            const card = cards[index];
-            if (!card) return;
-            const gridRect = grid.getBoundingClientRect();
-            const cardRect = card.getBoundingClientRect();
-            const offset = (cardRect.left + cardRect.width / 2) - (gridRect.left + gridRect.width / 2);
-            grid.scrollBy({ left: offset, behavior: 'smooth' });
-        };
+            let scrollTimeout;
+            grid.addEventListener('scroll', () => {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(updateUI, 50);
+            }, { passive: true });
 
-        const updateUI = () => {
-            const active = setActiveCard();
-            const activeIndex = cards.indexOf(active);
-            prevBtn.disabled = activeIndex <= 0;
-            nextBtn.disabled = activeIndex >= cards.length - 1;
-        };
+            let isDown = false, startX = 0, scrollStart = 0;
+            grid.addEventListener('mousedown', (e) => {
+                isDown = true;
+                grid.classList.add('is-dragging');
+                startX = e.pageX;
+                scrollStart = grid.scrollLeft;
+            });
+            window.addEventListener('mouseup', () => {
+                isDown = false;
+                grid.classList.remove('is-dragging');
+            });
+            window.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                grid.scrollLeft = scrollStart - (e.pageX - startX);
+            });
 
-        prevBtn.addEventListener('click', () => {
-            const active = cards.find(c => c.classList.contains('is-active'));
-            const i = Math.max(0, cards.indexOf(active) - 1);
-            scrollToCard(i);
-        });
-
-        nextBtn.addEventListener('click', () => {
-            const active = cards.find(c => c.classList.contains('is-active'));
-            const i = Math.min(cards.length - 1, cards.indexOf(active) + 1);
-            scrollToCard(i);
-        });
-
-        let scrollTimeout;
-        grid.addEventListener('scroll', () => {
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(updateUI, 50);
-        }, { passive: true });
-
-        // arrastar com mouse no desktop
-        let isDown = false, startX = 0, scrollStart = 0;
-        grid.addEventListener('mousedown', (e) => {
-            isDown = true;
-            grid.classList.add('is-dragging');
-            startX = e.pageX;
-            scrollStart = grid.scrollLeft;
-        });
-        window.addEventListener('mouseup', () => {
-            isDown = false;
-            grid.classList.remove('is-dragging');
-        });
-        window.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            grid.scrollLeft = scrollStart - (e.pageX - startX);
-        });
-
-        window.addEventListener('resize', updateUI);
-        updateUI();
-    } catch (e) {}
-})();
-
+            window.addEventListener('resize', updateUI);
+            updateUI();
+        } catch (e) {}
+    })();
 });
-
 
 // ============================================================
 // WHATSAPP: gera link a partir do formulário
@@ -403,7 +379,6 @@ function gerarLinkWhatsApp(event) {
 
     window.open(`https://wa.me/${numeroTelefone}?text=${encodeURIComponent(texto)}`, '_blank');
 }
-
 
 // ============================================================
 // MENU MOBILE
@@ -457,11 +432,4 @@ function gerarLinkWhatsApp(event) {
     } else {
         initMobileMenu();
     }
-
-
 })();
-
-
-
-
-
