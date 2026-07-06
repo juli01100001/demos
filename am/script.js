@@ -67,7 +67,7 @@
                 scrollTrigger: { trigger: '.stats', start: 'top 85%', toggleActions: 'play reverse play reverse' }
             });
         });
-    } catch (e) {}
+    } catch (e) { }
 
     // ---------- ABOUT ----------
     try {
@@ -98,7 +98,7 @@
                 scrollTrigger: { trigger: '.about', start: 'top 75%', toggleActions: 'play reverse play reverse' }
             });
         });
-    } catch (e) {}
+    } catch (e) { }
 
     // ---------- BEFORE/AFTER ----------
     try {
@@ -115,7 +115,7 @@
                 scrollTrigger: { trigger: '.before-after-section', start: 'top 75%', toggleActions: 'play reverse play reverse' }
             });
         });
-        
+
         mm.add('(max-width: 1024px)', () => {
             gsap.set('.ba-left', { opacity: 0, y: 30 });
             gsap.set('.ba-right', { opacity: 0, y: 30, scale: 0.98 });
@@ -129,7 +129,7 @@
                 scrollTrigger: { trigger: '.before-after-section', start: 'top 75%', toggleActions: 'play reverse play reverse' }
             });
         });
-    } catch (e) {}
+    } catch (e) { }
 
     // ---------- TESTIMONIALS (ESTABILIZADO PARA AMBOS E SINALIZANDO OS BOTÕES) ----------
     try {
@@ -142,16 +142,16 @@
         gsap.set('.testimonials-grid', { opacity: 0, y: 15 });
         gsap.to('.testimonials-grid', {
             opacity: 1, y: 0, duration: 0.8,
-            scrollTrigger: { 
-                trigger: '.testimonials-section', 
-                start: 'top 75%', 
+            scrollTrigger: {
+                trigger: '.testimonials-section',
+                start: 'top 75%',
                 toggleActions: 'play reverse play reverse',
                 // Sempre que reativar o elemento na tela, avisa o slider para recalcular as dimensões e ligar os botões
                 onEnter: () => window.dispatchEvent(new Event('resize')),
                 onEnterBack: () => window.dispatchEvent(new Event('resize'))
             }
         });
-    } catch (e) {}
+    } catch (e) { }
 
     // ---------- PREÇOS ----------
     try {
@@ -166,7 +166,7 @@
             opacity: 1, y: 0, duration: 0.6, stagger: 0.07,
             scrollTrigger: { trigger: '.prices-grid', start: 'top 85%', toggleActions: 'play reverse play reverse' }
         });
-    } catch (e) {}
+    } catch (e) { }
 
     // ---------- CONTATO ----------
     try {
@@ -191,7 +191,7 @@
                 scrollTrigger: { trigger: '.clinic-contact-section', start: 'top 78%', toggleActions: 'play reverse play reverse' }
             });
         });
-    } catch (e) {}
+    } catch (e) { }
 
     // ---------- FOOTER ----------
     try {
@@ -200,7 +200,7 @@
             opacity: 1, y: 0, duration: 1,
             scrollTrigger: { trigger: '.footer-branding', start: 'top 90%', toggleActions: 'play reverse play reverse' }
         });
-    } catch (e) {}
+    } catch (e) { }
 })();
 
 // ============================================================
@@ -247,7 +247,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 onLeaveBack: () => { p.innerText = originalText; }
             });
         });
-    } catch (e) {}
+    } catch (e) { }
 
     // ---------- Slider: Antes e Depois (B&A) ----------
     try {
@@ -265,7 +265,7 @@ window.addEventListener('DOMContentLoaded', () => {
             baBtnNext.addEventListener('click', () => goTo(current + 1));
             baBtnPrev.addEventListener('click', () => goTo(current - 1));
         }
-    } catch (e) {}
+    } catch (e) { }
 
     // ---------- Testimonials: scroll horizontal pinado ----------
     (() => {
@@ -282,16 +282,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
             const setActiveCard = () => {
                 const gridRect = grid.getBoundingClientRect();
-                const center = gridRect.left + gridRect.width / 2;
                 let closest = null;
                 let closestDist = Infinity;
 
                 cards.forEach(card => {
                     const r = card.getBoundingClientRect();
-                    const cardCenter = r.left + r.width / 2;
-                    const dist = Math.abs(cardCenter - center);
+                    const dist = Math.abs(r.left - gridRect.left);
                     if (dist < closestDist) { closestDist = dist; closest = card; }
-                    card.classList.toggle('is-active', dist < r.width / 2);
+                    card.classList.toggle('is-active', dist < 20);
                 });
 
                 return closest;
@@ -300,10 +298,17 @@ window.addEventListener('DOMContentLoaded', () => {
             const scrollToCard = (index) => {
                 const card = cards[index];
                 if (!card) return;
+
                 const gridRect = grid.getBoundingClientRect();
                 const cardRect = card.getBoundingClientRect();
-                const offset = (cardRect.left + cardRect.width / 2) - (gridRect.left + gridRect.width / 2);
-                grid.scrollBy({ left: offset, behavior: 'smooth' });
+
+                // distância do card até a borda esquerda do grid, na posição atual de scroll
+                const delta = cardRect.left - gridRect.left;
+
+                // soma ao scrollLeft atual (não ao scrollBy, que acumula erro se chamado rápido demais)
+                const targetScroll = grid.scrollLeft + delta;
+
+                grid.scrollTo({ left: targetScroll, behavior: 'smooth' });
             };
 
             const updateUI = () => {
@@ -350,7 +355,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
             window.addEventListener('resize', updateUI);
             updateUI();
-        } catch (e) {}
+        } catch (e) { }
     })();
 });
 
