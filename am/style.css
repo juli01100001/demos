@@ -606,6 +606,7 @@ img {
     padding: 20px 0 30px;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+      
 }
 
 
@@ -623,8 +624,6 @@ img {
     max-width: 500px;
     transform: scale(1);
     transition: opacity 0.45s ease, transform 0.45s ease;
-    margin: 0 20px;
-    scroll-snap-align: start
 }
 
 
@@ -1157,7 +1156,7 @@ h2,
     }
 
     .testimonials-grid {
-        padding: 20px 10vw 30px;
+        padding: 20px 0 30px;
     }
 
     .testimonial-card,
@@ -1175,9 +1174,6 @@ h2,
         gap: 1rem;
     }
 
-    .testimonial-card {
-        margin: 0 10px;
-    }
 }
 
 @media (max-width: 480px) {
