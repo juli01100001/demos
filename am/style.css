@@ -1156,8 +1156,15 @@ h2,
         font-size: 0.65rem;
     }
 
+    .testimonials-grid {
+        padding: 20px 10vw 30px;
+    }
 
-  
+    .testimonial-card,
+    .testimonial-card--hero {
+        flex-basis: 260px;
+    }
+
     .testimonials-title {
         font-size: 2.2rem;
     }
