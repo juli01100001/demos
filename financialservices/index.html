@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finarkein | Financial Technology with Certainty</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* --- DESIGN SYSTEM & CSS VARIABLES --- */
+        :root {
+            --bg-offwhite: #FCF9F2;
+            --bg-dark-green: #0F241B;
+            --bg-gray-blue: #E6ECEF;
+            --color-primary-dark: #263429;
+            --color-secondary-gray: #666666;
+            --color-neon-lime: #E1FF76;
+            --color-neon-soft: #d7e899;
+            --font-main: "Instrument Sans", sans-serif;
+            --max-width: 100rem;
+            /* ~1280px */
+            --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+            /* Responsive Font Sizes */
+            --fs-hero: clamp(2.2rem, 5vw, 4.2rem);
+            --fs-section-title: clamp(1.8rem, 4vw, 2.5rem);
+            --fs-metric: clamp(2.5rem, 6vw, 4.5rem);
+        }
+
+        /* --- CSS RESET --- */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-offwhite);
+            color: var(--color-primary-dark);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: var(--bg-offwhite);
+
+            /* Cria os círculos/pontos repetidos */
+            background-image:
+                linear-gradient(to right, #FFFCF5 1px, transparent 1px),
+                linear-gradient(to bottom, #FFFCF5 1px, transparent 1px);
+            /* Define o tamanho do espaçamento da grade (ex: 20px por 20px) */
+            background-size: 10px 10px;
+        }
+
+        /* --- LAYOUT UTILITIES --- */
+        .container {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 3rem 0;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1,
+        h2,
+        h3 {
+            font-weight: 400;
+            line-height: 1.15;
+            letter-spacing: -0.04em;
+        }
+
+        p {
+            font-weight: 400;
+            line-height: 1.6;
+            color: var(--color-secondary-gray);
+            font-size: 1.05rem;
+        }
+
+        /* --- BUTTONS & PILLS --- */
+        .pill-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background-color: var(--color-primary-dark);
+            color: #FFFFFF;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50rem;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: var(--transition-smooth);
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+
+        .pill-btn .arrow-circle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.5rem;
+            height: 1.5rem;
+            background-color: #FFFFFF;
+            color: var(--color-primary-dark);
+            border-radius: 50%;
+            font-size: 0.85rem;
+            transition: var(--transition-smooth);
+        }
+
+        .pill-btn:hover {
+            background-color: transparent;
+            color: var(--color-primary-dark);
+            border-color: var(--color-primary-dark);
+        }
+
+        .pill-btn:hover .arrow-circle {
+            background-color: var(--color-primary-dark);
+            color: #FFFFFF;
+            transform: translate(1px, -1px);
+        }
+
+        /* --- HEADER / NAVBAR --- */
+        header {
+
+            transition: var(--transition-smooth);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 5rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--color-primary-dark);
+            font-weight: 800;
+            font-size: 1.3rem;
+            letter-spacing: -0.01em;
+        }
+
+        /* Dot Matrix Icon Logo */
+        .logo-icon {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3px;
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        .logo-icon span {
+            width: 4px;
+            height: 4px;
+            background-color: var(--color-primary-dark);
+            border-radius: 50%;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            padding-top: 8rem;
+            padding-bottom: 5rem;
+        }
+
+        .hero-content {
+            max-width: 65rem;
+        }
+
+        .hero h1 {
+            font-size: var(--fs-hero);
+            color: var(--color-primary-dark);
+            margin-bottom: 2.5rem;
+            font-size: 5rem;
+            line-height: 1;
+        }
+
+        .hero-tags {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .tag-chip {
+            padding: 0.6rem 1.5rem;
+            border: 1px solid #CCCCCC;
+            border-radius: 50rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: var(--color-primary-dark);
+            background-color: transparent;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .tag-chip:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+            border-color: var(--color-primary-dark);
+        }
+
+        /* --- CONSENT BANNER (DARK SECTION) --- */
+        .consent-section {
+            padding: 4rem 0;
+        }
+
+        .consent-banner {
+            background-color: var(--bg-dark-green);
+            border-radius: 2rem;
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(15, 36, 27, 0.25);
+        }
+
+        /* Infinite Marquee */
+        .marquee-container {
+            background-color: var(--color-neon-lime);
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 0.75rem 0;
+            display: flex;
+            position: relative;
+        }
+
+        .marquee-content {
+            display: inline-flex;
+            gap: 4rem;
+            animation: marquee 25s linear infinite;
+        }
+
+        .marquee-content span {
+            color: var(--bg-dark-green);
+            font-weight: 800;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0%);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Banner Inner Elements */
+        .banner-inner {
+            padding: 5rem 4rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .badge-pill {
+            background-color: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--color-neon-lime);
+            padding: 0.5rem 1.25rem;
+            border-radius: 50rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+
+        .banner-inner h2 {
+            color: #FFFFFF;
+            font-size: var(--fs-section-title);
+            max-width: 40rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .banner-inner .subtitle {
+            color: #A0AAB0;
+            font-size: 1.1rem;
+            max-width: 32rem;
+            margin-bottom: 5rem;
+        }
+
+        /* Grid Metrics */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            width: 100%;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 3.5rem;
+        }
+
+        .metric-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            /* Animated with GSAP */
+            transform: translateY(20px);
+        }
+
+        .metric-num {
+            font-size: var(--fs-metric);
+            font-weight: 800;
+            color: #FFFFFF;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.03em;
+        }
+
+        .metric-label {
+            color: #8D999F;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* CSS Greek Columns (Halftone/Pixel Art Stylized) */
+        .greek-pillar {
+            position: absolute;
+            bottom: 0;
+            width: 110px;
+            height: 380px;
+            opacity: 0.12;
+            pointer-events: none;
+            background-size: 10px 10px;
+            background-image:
+                radial-gradient(circle, var(--color-neon-lime) 15%, transparent 16%),
+                radial-gradient(circle, var(--color-neon-soft) 15%, transparent 16%);
+            background-position: 0 0, 5px 5px;
+            mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0) 100%);
+            -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0) 100%);
+        }
+
+        .greek-pillar.left {
+            left: 2rem;
+            clip-path: polygon(10% 0%, 90% 0%, 90% 15%, 80% 15%, 80% 85%, 90% 85%, 90% 100%, 10% 100%, 10% 85%, 20% 85%, 20% 15%, 10% 15%);
+        }
+
+        .greek-pillar.right {
+            right: 2rem;
+            clip-path: polygon(10% 0%, 90% 0%, 90% 15%, 80% 15%, 80% 85%, 90% 85%, 90% 100%, 10% 100%, 10% 85%, 20% 85%, 20% 15%, 10% 15%);
+        }
+
+        /* --- FEATURE SECTIONS (ALTERNATED) --- */
+        .feature-block {
+            padding: 7rem 0;
+        }
+
+        .feature-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .feature-row.reverse {
+            direction: rtl;
+        }
+
+        .feature-row.reverse .feature-info {
+            direction: ltr;
+        }
+
+        .feature-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .feature-tag {
+            background-color: rgba(26, 26, 26, 0.05);
+            color: var(--color-primary-dark);
+            padding: 0.4rem 1rem;
+            border-radius: 50rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-info h3 {
+            font-size: var(--fs-section-title);
+            color: var(--color-primary-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-info p {
+            margin-bottom: 2.5rem;
+        }
+
+        .feature-metric {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--color-primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* CSS Stylized Abstract Pixel Art Illustrations */
+        .illustration-box {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1.1 / 1;
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ill-pixel-canvas {
+            width: 18rem;
+            height: 18rem;
+            background-size: 15px 15px;
+            background-image:
+                radial-gradient(circle, var(--color-primary-dark) 10%, transparent 11%),
+                radial-gradient(circle, var(--color-neon-soft) 10%, transparent 11%);
+            background-position: 0 0, 7.5px 7.5px;
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Unique shapes representing each illustration */
+        .binoculars {
+            clip-path: polygon(10% 20%, 45% 20%, 45% 45%, 55% 45%, 55% 20%, 90% 20%, 95% 80%, 65% 80%, 60% 50%, 40% 50%, 35% 80%, 5% 80%);
+            background-image: radial-gradient(circle, #CCFF00 15%, #0F241B 16%);
+            background-size: 12px 12px;
+        }
+
+        .arch {
+            clip-path: polygon(10% 100%, 10% 50%, 20% 30%, 40% 15%, 60% 15%, 80% 30%, 90% 50%, 90% 100%, 70% 100%, 70% 60%, 60% 45%, 40% 45%, 30% 60%, 30% 100%);
+            background-image: radial-gradient(circle, #0F241B 15%, #CCFF00 16%);
+            background-size: 12px 12px;
+        }
+
+        .spotlight {
+            clip-path: polygon(40% 10%, 60% 10%, 85% 90%, 15% 90%);
+            background-image: radial-gradient(circle, #A3E635 15%, #1A1A1A 16%);
+            background-size: 14px 14px;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        /* --- CLIENTS & PARTNERS GRADE --- */
+        .clients-section {
+            padding: 5rem 0;
+        }
+
+        .clients-wrapper {
+            background-color: var(--bg-gray-blue);
+            border-radius: 2rem;
+            padding: 5rem 3rem;
+            text-align: center;
+        }
+
+        .clients-badges {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .clients-badges span {
+            background-color: rgba(255, 255, 255, 0.6);
+            color: var(--color-primary-dark);
+            padding: 0.4rem 1.2rem;
+            border-radius: 50rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .clients-wrapper h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: 4rem;
+            max-width: 36rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .logos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .logo-item {
+            background-color: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50rem;
+            height: 4.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--color-primary-dark);
+            font-size: 0.95rem;
+            letter-spacing: -0.01em;
+            transition: var(--transition-smooth);
+            padding: 0 1.5rem;
+        }
+
+        .logo-item:hover {
+            background-color: #FFFFFF;
+            transform: scale(1.03);
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.05);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 8rem 0 3rem 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 6rem;
+        }
+
+        .footer-message {
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            color: var(--color-primary-dark);
+            max-width: 38rem;
+            line-height: 1.1;
+        }
+
+        .footer-art {
+            display: flex;
+            justify-content: flex-end;
+            position: relative;
+        }
+
+        /* CSS lighthouse pixel design */
+        .lighthouse-container {
+            position: relative;
+            width: 15rem;
+            height: 15rem;
+        }
+
+        .lighthouse {
+            width: 4rem;
+            height: 10rem;
+            position: absolute;
+            bottom: 0;
+            right: 2rem;
+            clip-path: polygon(30% 0%, 70% 0%, 80% 15%, 80% 30%, 90% 100%, 10% 100%, 20% 30%, 20% 15%);
+            background-image: radial-gradient(circle, #0F241B 18%, #CCFF00 19%);
+            background-size: 10px 10px;
+        }
+
+        .lighthouse-beam {
+            position: absolute;
+            top: 1.5rem;
+            right: 5rem;
+            width: 11rem;
+            height: 4rem;
+            clip-path: polygon(0% 0%, 100% 35%, 100% 65%, 0% 100%);
+            background-size: 12px 12px;
+            background-image: radial-gradient(circle, #CCFF00 15%, transparent 16%);
+            opacity: 0.65;
+            animation: beamPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes beamPulse {
+
+            0%,
+            100% {
+                opacity: 0.4;
+                transform: scaleY(0.9);
+            }
+
+            50% {
+                opacity: 0.8;
+                transform: scaleY(1.1);
+            }
+        }
+
+        .footer-bottom {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            padding-top: 3rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            padding: 0.5rem 1.25rem;
+            border: 1px solid #E0E0E0;
+            border-radius: 50rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--color-secondary-gray);
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-link:hover {
+            color: var(--color-primary-dark);
+            border-color: var(--color-primary-dark);
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        .copyright {
+            font-size: 0.75rem;
+            color: #999999;
+        }
+
+        /* --- RESPONSIVENESS & BREAKPOINTS --- */
+        @media (max-width: 1024px) {
+            .feature-row {
+                gap: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 4rem 0;
+            }
+
+            .navbar {
+                height: 4.5rem;
+            }
+
+            .hero {
+                padding-top: 5rem;
+            }
+
+            .hero-tags {
+                gap: 0.5rem;
+            }
+
+            .consent-banner {
+                border-radius: 1.5rem;
+            }
+
+            .banner-inner {
+                padding: 4rem 2rem;
+            }
+
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2.5rem;
+            }
+
+            .greek-pillar {
+                display: none;
+                /* Hide illustrative columns on small tablet/mobile */
+            }
+
+            .feature-row,
+            .feature-row.reverse {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                direction: ltr;
+                /* Reset text direction order for mobile */
+            }
+
+            .feature-info {
+                align-items: center;
+                text-align: center;
+            }
+
+            .feature-row.reverse .feature-info {
+                direction: ltr;
+            }
+
+            .illustration-box {
+                order: 2;
+                /* Visual elements below text on mobile */
+                aspect-ratio: 1.3 / 1;
+            }
+
+            .ill-pixel-canvas {
+                width: 12rem;
+                height: 12rem;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
+            }
+
+            .footer-message {
+                max-width: 100%;
+            }
+
+            .footer-art {
+                justify-content: center;
+            }
+
+            .lighthouse-container {
+                width: 100%;
+                max-width: 15rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .metrics-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .clients-wrapper {
+                padding: 3.5rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container navbar">
+            <a href="#" class="logo" aria-label="Finarkein Home">
+                <div class="logo-icon">
+                    <span></span><span></span><span></span>
+                    <span></span><span></span><span></span>
+                    <span></span><span></span><span></span>
+                </div>
+                Finarkein
+            </a>
+            <a href="#" class="pill-btn">
+                Build With Us
+                <span class="arrow-circle">↗</span>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Financial technology that takes you from chance to certainty.</h1>
+                    <div class="hero-tags">
+                        <button class="tag-chip">Lending</button>
+                        <button class="tag-chip">Insurance</button>
+                        <button class="tag-chip">Wealth</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="consent-section">
+            <div class="container">
+                <div class="consent-banner">
+                    <div class="marquee-container">
+                        <div class="marquee-content">
+                            <span>* Multi-AA</span>
+                            <span>* ONDC</span>
+                            <span>* OCEN</span>
+                            <span>* Multi-AA</span>
+                            <span>* ONDC</span>
+                            <span>* OCEN</span>
+                            <span>* Multi-AA</span>
+                            <span>* ONDC</span>
+                            <span>* OCEN</span>
+                            <span>* Multi-AA</span>
+                            <span>* ONDC</span>
+                            <span>* OCEN</span>
+                        </div>
+                    </div>
+
+                    <div class="banner-inner">
+                        <div class="greek-pillar left" aria-hidden="true"></div>
+                        <div class="greek-pillar right" aria-hidden="true"></div>
+
+                        <span class="badge-pill">Intelligent AA Orchestration</span>
+                        <h2>Never miss an opportunity to gain user consent.</h2>
+                        <p class="subtitle">Trusted by 6 of the top 10 banks & lenders in the ecosystem.</p>
+
+                        <div class="metrics-grid">
+                            <div class="metric-card js-metric">
+                                <span class="metric-num">5.5Cr+</span>
+                                <span class="metric-label">Users Handled</span>
+                            </div>
+                            <div class="metric-card js-metric">
+                                <span class="metric-num">₹210Cr</span>
+                                <span class="metric-label">Collections Saved</span>
+                            </div>
+                            <div class="metric-card js-metric">
+                                <span class="metric-num">₹1000Cr+</span>
+                                <span class="metric-label">Leads Generated</span>
+                            </div>
+                            <div class="metric-card js-metric">
+                                <span class="metric-num">1M+</span>
+                                <span class="metric-label">Credit Cards Issued</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="feature-block">
+            <div class="container">
+                <div class="feature-row">
+                    <div class="feature-info">
+                        <span class="feature-tag">Lending</span>
+                        <h3>Lend & collect with realtime insights, and less guesswork.</h3>
+                        <p>Leverage secure financial orchestrations that enable seamless digital credit matching. Reduce
+                            turnaround and eliminate assumptions in real time.</p>
+                        <span class="feature-metric">↳ ₹50Cr increase in monthly disbursements</span>
+                    </div>
+                    <div class="illustration-box js-reveal">
+                        <div class="ill-pixel-canvas binoculars" aria-label="Abstract representation of binoculars">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="feature-block">
+            <div class="container">
+                <div class="feature-row reverse">
+                    <div class="feature-info">
+                        <span class="feature-tag">Insurance</span>
+                        <h3>Cut risks & increase retention with lean insurance processes.</h3>
+                        <p>Create a highly optimized user consent journey. Accelerate underwriting times, evaluate risks
+                            on precise data parameters, and drive lifetime customer satisfaction.</p>
+                        <span class="feature-metric">↳ 90% decrease in underwriting time</span>
+                    </div>
+                    <div class="illustration-box js-reveal">
+                        <div class="ill-pixel-canvas arch" aria-label="Abstract representation of a roman gate arch">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="feature-block">
+            <div class="container">
+                <div class="feature-row">
+                    <div class="feature-info">
+                        <span class="feature-tag">Wealth</span>
+                        <h3>Earn customer confidence with trusted wealth management.</h3>
+                        <p>Synthesize rich, real-time metrics that help users grow asset certainty. We power deep
+                            integration APIs built strictly on user authorization and top-tier compliance.</p>
+                        <span class="feature-metric">↳ 14% increase in engaged customers</span>
+                    </div>
+                    <div class="illustration-box js-reveal">
+                        <div class="ill-pixel-canvas spotlight" aria-label="Abstract representation of a spotlight">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="clients-section">
+            <div class="container">
+                <div class="clients-wrapper">
+                    <div class="clients-badges">
+                        <span>Secure</span>
+                        <span>Responsible</span>
+                        <span>Scalable</span>
+                    </div>
+                    <h2>Trusted by leading financial institutions across India.</h2>
+                    <div class="logos-grid">
+                        <div class="logo-item">Tata AIA</div>
+                        <div class="logo-item">Smallcase</div>
+                        <div class="logo-item">IIFL</div>
+                        <div class="logo-item">PNB MetLife</div>
+                        <div class="logo-item">HDFC Ergo</div>
+                        <div class="logo-item">Bajaj Finserv</div>
+                        <div class="logo-item">UTI</div>
+                        <div class="logo-item">ICICI Prudential</div>
+                        <div class="logo-item">SBI Card</div>
+                        <div class="logo-item">Bajaj Allianz</div>
+                        <div class="logo-item">Alice Blue</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-message">
+                    Data for Good. Powered by Finarkein.
+                </div>
+                <div class="footer-art">
+                    <div class="lighthouse-container">
+                        <div class="lighthouse-beam" aria-hidden="true"></div>
+                        <div class="lighthouse" aria-label="Pixel art illustration of a lighthouse"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Terms & Conditions</a>
+                    <a href="mailto:hello@finarkein.com" class="footer-link">hello@finarkein.com</a>
+                    <a href="#" class="footer-link">LinkedIn</a>
+                </div>
+                <div class="copyright">
+                    &copy; 2026 Finarkein Analytics Pvt. Ltd. | CIN: U72900PN2019PTC187211
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Register ScrollTrigger plugin
+            gsap.registerPlugin(ScrollTrigger);
+
+            // 1. Marquee Duplicate Mechanism (Infinitely seamless scrolling helper)
+            const marqueeContent = document.querySelector('.marquee-content');
+            if (marqueeContent) {
+                const duplicate = marqueeContent.cloneNode(true);
+                marqueeContent.parentElement.appendChild(duplicate);
+            }
+
+            // 2. Metrics Reveal Animation on ScrollTrigger (Consent Banner)
+            gsap.fromTo(".js-metric",
+                { opacity: 0, y: 30 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    stagger: 0.15,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: ".consent-banner",
+                        start: "top 75%",
+                        toggleActions: "play none none none"
+                    }
+                }
+            );
+
+            // 3. Pixel Illustrations Smooth Reveal Entrance Animations
+            const illustrations = document.querySelectorAll('.js-reveal');
+            illustrations.forEach(item => {
+                gsap.fromTo(item,
+                    { opacity: 0, scale: 0.9, y: 40 },
+                    {
+                        opacity: 1,
+                        scale: 1,
+                        y: 0,
+                        duration: 1,
+                        ease: "elastic.out(1, 0.75)",
+                        scrollTrigger: {
+                            trigger: item,
+                            start: "top 80%",
+                            toggleActions: "play none none none"
+                        }
+                    }
+                );
+            });
+        });
+    </script>
+</body>
+
+</html>

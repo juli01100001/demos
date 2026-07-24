@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Websites, Softwares & Systems</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Special+Gothic:wght@400..700&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <canvas id="light-grain"></canvas>
+
+    <header class="navbar">
+        <div class="nav-links">
+            <a href="#portfolio" class="link-animated">Projetos</a>, <a href="#sobre" class="link-animated">Sobre & Serviços</a>, <a href="#contact" class="link-animated">Contato</a>
+        </div>
+        <div class="logo">{ deploy }<span></span></div>
+
+    </header>
+    <section class="hero-content">
+        <div>
+            <h1 class="hero-title">Software, Consultoria & Branding</h1>
+            <br>
+            <span class="hero-tagline">Pra voce, que nao quer ser generico.</span>
+        </div>
+
+        <div class="hero-text">
+            <p>
+                Se voce ta insatisfeito com sua marca, seu site, rotina manual te atrasando, nos te ajudamos com a
+                solucao; Nao
+                importa da onde voce veio, se ta começando ou ja domina mercado, se tem algo te travando a deploy ta do
+                seu lado. </p>
+        </div>
+    </section>
+    <div class="noise-overlay"></div>
+
+
+    <section id="hero">
+
+    </section>
+
+    <section class="intro-section" id="sobre">
+        <div class="intro-container">
+            <div class="intro-header">
+                <span class="bold">Nossa Filosofia</span>
+                <span class="bold">Sobre Nós</span>
+            </div>
+
+            <div class="intro-grid">
+                <div class="quote-block reveal-el">
+                    <p class="quote-text">“A perfeição é atingida quando não há mais nada a retirar.”</p>
+                    <span class="quote-author"><span class="">Antoine de Saint-Exupéry </span>,(Escritor, Ilustrador e
+                        Engenheiro)</span>
+                </div>
+                <div class="intro-description reveal-el">
+                    <p>Eliminamos tarefas manuais através de ferramentas simples, para que você possa focar no que
+                        realmente importa. Alinhamos estética visual e precisão técnica para ajudar empresas modernas a
+                        deixarem sua marca
+                        de forma sutil e duradoura. </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section" id="statsSection">
+        <div class="stats-container">
+
+            <header class="stats-header">
+                <!-- <span class="stats-tagline bold">O Mercado Atual</span> -->
+                <h2 class="stats-title">
+                    O mercado está saturado.<br>
+                    <span>Ser genérico custa caro.</span>
+                </h2>
+            </header>
+
+            <div class="stats-grid">
+
+
+
+                <div class="stat-card">
+                    <div class="stat-bar-wrapper">
+                        <div class="stat-bar" data-height="70%">
+                            <span class="stat-number">70%</span>
+                        </div>
+                    </div>
+                    <div class="stat-content">
+                        <p class="stat-text">
+                            <strong>das empresas perdem eficiência</strong> tentando adaptar rotinas manuais a softwares
+                            genéricos.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-bar-wrapper">
+                        <div class="stat-bar" data-height="88%">
+                            <span class="stat-number">88%</span>
+                        </div>
+                    </div>
+                    <div class="stat-content">
+                        <p class="stat-text">
+                            <strong>dos usuários não retornam</strong> a um site após uma experiência ruim de navegação
+                            ou design datado.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-bar-wrapper">
+                        <div class="stat-bar" data-height="95%">
+                            <span class="stat-number">95%</span>
+                        </div>
+                    </div>
+                    <div class="stat-content">
+                        <p class="stat-text">
+                            <strong>das marcas são esquecidas</strong> por não construírem uma identidade forte e um
+                            posicionamento único.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </section>
+
+    <section class="process-section">
+        <canvas id="process-grain"></canvas>
+
+        <div class="process-container">
+
+            <header class="process-header">
+                <span class="process-tagline bold">Nosso Processo</span>
+                <h2 class="process-title">Simplicidade na forma, precisão na execução</h2>
+            </header>
+
+            <div class="process-grid">
+
+                <article class="process-card">
+                    <div class="process-media">
+                        <img src="entender.gif" alt="Etapa de entendimento do projeto">
+                    </div>
+                    <h3 class="process-card-title">Entender</h3>
+                    <p class="process-card-desc">
+                        Mapeamos seus objetivos e contexto para transformar insights em uma estrutura estratégica.
+                    </p>
+                </article>
+
+                <article class="process-card">
+                    <div class="process-media">
+                        <img src="criar.gif" alt="Etapa de criação do projeto">
+                    </div>
+                    <h3 class="process-card-title">Criar</h3>
+                    <p class="process-card-desc">
+                        Projetamos a experiência e desenvolvemos um sistema digital robusto, fluido e de alta
+                        performance.
+                    </p>
+                </article>
+
+                <article class="process-card">
+                    <div class="process-media">
+                        <img src="evoluir.gif" alt="Etapa de evolução do projeto">
+                    </div>
+                    <h3 class="process-card-title">Evoluir</h3>
+                    <p class="process-card-desc">
+                        Analisamos dados e iteramos continuamente para que seu projeto acompanhe o seu crescimento.
+                    </p>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="services-section" id="services">
+        <div class="services-container">
+
+            <div class="services-top">
+                <div>
+                    <span class="bold">Nossos Serviços</span>
+                    <h3 class="services-title reveal-el">Criamos identidades (digitais) completas e sistemas web
+                        escaláveis.</h3>
+                </div>
+
+            </div>
+
+            <div class="grid-columns">
+
+                <div class="service-column reveal-el">
+                    <h4 class="bold">Consultoria</h4>
+                    <ul class="service-list">
+                        <li>Diagnóstico Digital Completo</li>
+                        <li>Análise Competitiva & Benchmarking</li>
+                        <li>Plano Tech + Negócio</li>
+                    </ul>
+                    <a class="btn service-price">Saiba mais <svg viewBox="0 0 10 10" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg></a>
+                </div>
+
+                <div class="service-column reveal-el">
+                    <h4 class="bold">Software</h4>
+                    <ul class="service-list">
+                        <li>Websites & WebApps</li>
+                        <li>Analise de Performance</li>
+                    </ul>
+                    <a class="btn service-price">Saiba Mais <svg viewBox="0 0 10 10" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg></a>
+                </div>
+                <div class="service-column reveal-el">
+                    <h4 class="bold">Branding</h4>
+                    <ul class="service-list">
+                        <li>Identidade Visual</li>
+                        <li>Sistemas de Tipografia</li>
+                        <li>Diretrizes de Design</li>
+                    </ul>
+                    <a class="btn service-price">Saiba Mais <svg viewBox="0 0 10 10" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg></a>
+                </div>
+
+
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <section class="portfolio-section" id="portfolio">
+        <canvas id="portfolio-grain"></canvas>
+
+        <div class="portfolio-header reveal-el">
+            <span class="bold">Projetos Selecionados</span>
+            <h2>O que Fazemos de Melhor</h2>
+        </div>
+
+        <div class="portfolio-cards">
+
+            <article class="portfolio-card">
+                <div class="card-screen">
+                    <img class="card-image" src="./image.png" alt="Projeto 1 — descreva aqui o nome/tipo do projeto"
+                        loading="lazy">
+                </div>
+            </article>
+
+            <article class="portfolio-card">
+                <div class="card-screen">
+                    <img class="card-image" src="./image5.png" alt="Projeto 2 — descreva aqui o nome/tipo do projeto"
+                        loading="lazy">
+                </div>
+            </article>
+
+            <article class="portfolio-card">
+                <div class="card-screen">
+                    <img class="card-image" src="./image3.png" alt="Projeto 3 — descreva aqui o nome/tipo do projeto"
+                        loading="lazy">
+                </div>
+            </article>
+
+            <article class="portfolio-card">
+                <div class="card-screen">
+                    <img class="card-image" src="./image4.png" alt="Projeto 4 — descreva aqui o nome/tipo do projeto"
+                        loading="lazy">
+                </div>
+            </article>
+
+        </div>
+
+        <div class="portfolio-footer reveal-el">
+            <a class="btn btn-outline" href="#contact">(Re)Faça meu site
+                <svg viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+        <div class="contact-container">
+
+            <header class="contact-header">
+                <h2 class="contact-hero-title">Fale Conosco</h2>
+            </header>
+
+            <div class="contact-grid">
+
+                <div class="contact-info">
+                    <div class="info-block">
+                        <p class="bold">A sua história molda a nossa estratégia.</p>
+                        <p class="text-muted-info"> Por favor, compartilhe um pouco sobre você e seu negocio. Preencha
+                            este formulário para que possamos conhecer suas necessidades. Nosso objetivo é responder à
+                            sua solicitação dentro de 24 horas.
+                        </p>
+                    </div>
+
+                </div>
+
+                <form class="contact-form" id="whatsappForm" data-phone="5500000000000">
+
+                    <div class="form-group-label">
+                        <label>Ola, meu nome e <span class="required">(obrigatório)</span></label>
+                        <div class="form-row-2col">
+                            <input type="text" id="firstName" placeholder="Nome" required class="minimal-input">
+                            <input type="text" id="lastName" placeholder="Sobrenome" required class="minimal-input">
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label for="email">Meu E-mail e <span class="required">(obrigatório)</span></label>
+                        <input type="email" id="email" placeholder="seuemail@dominio.com" required
+                            class="minimal-input">
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label for="description">Estamos buscando uma soluçao para</label>
+                        <textarea id="description" rows="2" placeholder="Conte um pouco sobre suas ideias..."
+                            class="minimal-input"></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <a href="#" id="whatsappSubmitBtn" class="btn btn-dark">
+                            Enviar via WhatsApp
+                            <svg viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </a>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-container" id="footer">
+        <canvas id="footer-grain"></canvas>
+
+        <div class="footer-top">
+            <div class="footer-logo">
+                { deploy }
+            </div>
+
+            <div class="footer-info-group">
+                <div class="footer-address">
+                    <p>Deploy Ideas Studio</p>
+                    <p>Apoiamos a causa de criar marcas</p>
+                    <p>com personalidade, não só mais um site.</p>
+                    <p>Brasil</p>
+                </div>
+
+                <nav class="footer-nav">
+                    <a href="#portfolio" class="link-animated">Projetos</a>
+                    <a href="#services" class="link-animated">Sobre</a>
+                </nav>
+
+                <nav class="footer-nav">
+                    <a href="#contact" class="link-animated">Contato</a>
+                </nav>
+
+                <div class="footer-social">
+                    <a href="https://wa.me/5500000000000" target="_blank" rel="noopener" class="link-animated">WhatsApp ↗</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-middle">
+            <div class="newsletter-wrapper">
+                <p class="newsletter-label">Receba novidades do<br>Deploy Ideas Studio</p>
+                <form class="newsletter-form" action="#" method="POST">
+                    <input type="email" placeholder="Digite seu e-mail" required />
+                    <button type="submit">Inscrever-se &rarr;</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>Criado & Desenvolvido por deploy</span>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
