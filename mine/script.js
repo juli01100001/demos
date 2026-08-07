@@ -76,6 +76,78 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ==========================================
+    // 1.5 PRELOADER — esconde overlay e revela o hero quando pronto
+    // ==========================================
+    (function initPreloader() {
+        const preloader = document.getElementById("sitePreloader");
+        const heroContent = document.querySelector(".hero-content");
+        const heroVideo = document.querySelector(".hero-video");
+
+        if (!preloader) return;
+
+        let readyFlags = { fonts: false, page: false, video: !heroVideo };
+        let released = false;
+
+        function tryRelease() {
+            if (released) return;
+            if (!(readyFlags.fonts && readyFlags.page && readyFlags.video)) return;
+            released = true;
+
+            preloader.classList.add("is-hidden");
+            if (heroContent) heroContent.classList.add("is-revealed");
+
+            // Só depois do reveal é que faz sentido recalcular os
+            // ScrollTriggers — evita medir layout enquanto o preloader
+            // ainda está cobrindo a tela.
+            requestAnimationFrame(() => ScrollTrigger.refresh());
+        }
+
+        // Timeout de segurança: nunca deixa o site preso no preloader
+        // (ex: vídeo que nunca dispara 'canplay' numa conexão ruim).
+        const safetyTimeout = setTimeout(() => {
+            readyFlags = { fonts: true, page: true, video: true };
+            tryRelease();
+        }, 4000);
+
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(() => {
+                readyFlags.fonts = true;
+                tryRelease();
+            });
+        } else {
+            readyFlags.fonts = true;
+        }
+
+        if (document.readyState === "complete") {
+            readyFlags.page = true;
+            tryRelease();
+        } else {
+            window.addEventListener("load", () => {
+                readyFlags.page = true;
+                tryRelease();
+            }, { once: true });
+        }
+
+        if (heroVideo) {
+            if (heroVideo.readyState >= 3) {
+                readyFlags.video = true;
+                tryRelease();
+            } else {
+                heroVideo.addEventListener("canplay", () => {
+                    readyFlags.video = true;
+                    tryRelease();
+                }, { once: true });
+            }
+        }
+
+        tryRelease();
+        // (o setTimeout acima é limpo automaticamente já que tryRelease
+        // marca released=true e ignora chamadas futuras; deixamos o
+        // clearTimeout implícito pela flag)
+        void safetyTimeout;
+    })();
+
+    // ==========================================
     // 2. CINEMATIC GRAIN ENGINE (sem alterações)
     // ==========================================
     function initPerformanceGrain(canvasId) {
@@ -323,24 +395,39 @@ document.addEventListener("DOMContentLoaded", () => {
             // "pulos" — o movimento atrasava e depois corria atrás.
             // Sem scrub, o wrapper segue o progresso do scroll 1:1,
             // e a suavidade vem só do Lenis (uma única fonte).
+            //
+            // PERFORMANCE: ler `scrollWidth` força um reflow do layout.
+            // Fazer isso dentro do onUpdate (chamado a cada frame de
+            // scroll) é o que deixava o mobile lento — o navegador
+            // recalculava o layout inteiro dezenas de vezes por
+            // segundo. Agora a distância é calculada só no refresh
+            // (load, resize, fonts.ready) e cacheada; o onUpdate só lê
+            // a variável, sem tocar no DOM.
             const portfolioSection = document.querySelector(".projects-section");
             const portfolioWrapper = document.querySelector(".cards-wrapper");
 
             if (portfolioSection && portfolioWrapper) {
-                const getPortfolioScrollDistance = () =>
-                    Math.max(0, portfolioWrapper.scrollWidth - portfolioSection.clientWidth);
+                let cachedPortfolioDistance = 0;
+
+                const recalcPortfolioDistance = () => {
+                    cachedPortfolioDistance = Math.max(
+                        0,
+                        portfolioWrapper.scrollWidth - portfolioSection.clientWidth
+                    );
+                    return cachedPortfolioDistance;
+                };
 
                 gsap.set(portfolioWrapper, { x: 0 });
 
                 ScrollTrigger.create({
                     trigger: portfolioSection,
                     start: "top top",
-                    end: () => "+=" + getPortfolioScrollDistance(),
+                    end: () => "+=" + recalcPortfolioDistance(),
                     pin: true,
                     anticipatePin: 1,
                     invalidateOnRefresh: true,
                     onUpdate: (self) => {
-                        gsap.set(portfolioWrapper, { x: -getPortfolioScrollDistance() * self.progress });
+                        gsap.set(portfolioWrapper, { x: -cachedPortfolioDistance * self.progress });
                     }
                 });
             }
