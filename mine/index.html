@@ -4,363 +4,297 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Websites, Softwares & Systems</title>
+    <title>Websites, Softwares & Sistemas</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Special+Gothic:wght@400..700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Lora:ital,wght@0,400..700;1,400..700&family=Special+Gothic:wght@400..700&display=swap"
         rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <link rel="stylesheet" href="style.css">
+
+    <script src="script.js" defer></script>
 </head>
 
 <body>
 
-    <canvas id="light-grain"></canvas>
-
-    <header class="navbar">
-        <div class="nav-links">
-            <a href="#portfolio" class="link-animated">Projetos</a>, <a href="#sobre" class="link-animated">Sobre & Serviços</a>, <a href="#contact" class="link-animated">Contato</a>
-        </div>
-        <div class="logo">{ deploy }<span></span></div>
-
-    </header>
-    <section class="hero-content">
-        <div>
-            <h1 class="hero-title">Software, Consultoria & Branding</h1>
-            <br>
-            <span class="hero-tagline">Pra voce, que nao quer ser generico.</span>
+    <section class="hero-section">
+        <div class="hero-video-wrapper">
+            <video class="hero-video" autoplay loop muted playsinline>
+                <source src="https://www.pexels.com/download/video/3209301/" type="video/mp4">
+            </video>
         </div>
 
-        <div class="hero-text">
-            <p>
-                Se voce ta insatisfeito com sua marca, seu site, rotina manual te atrasando, nos te ajudamos com a
-                solucao; Nao
-                importa da onde voce veio, se ta começando ou ja domina mercado, se tem algo te travando a deploy ta do
-                seu lado. </p>
-        </div>
-    </section>
-    <div class="noise-overlay"></div>
+        <div class="hero-overlay"></div>
 
-
-    <section id="hero">
-
-    </section>
-
-    <section class="intro-section" id="sobre">
-        <div class="intro-container">
-            <div class="intro-header">
-                <span class="bold">Nossa Filosofia</span>
-                <span class="bold">Sobre Nós</span>
-            </div>
-
-            <div class="intro-grid">
-                <div class="quote-block reveal-el">
-                    <p class="quote-text">“A perfeição é atingida quando não há mais nada a retirar.”</p>
-                    <span class="quote-author"><span class="">Antoine de Saint-Exupéry </span>,(Escritor, Ilustrador e
-                        Engenheiro)</span>
+        <div class="hero-content">
+            <header class="header">
+                <div class="links">
+                    <a href="#contact" class="link-animated">Contato, </a>
+                    <a href="#sobre" class="link-animated">Sobre & Serviços,</a>
+                    <a href="#portfolio" class="link-animated">Projetos</a>
                 </div>
-                <div class="intro-description reveal-el">
-                    <p>Eliminamos tarefas manuais através de ferramentas simples, para que você possa focar no que
-                        realmente importa. Alinhamos estética visual e precisão técnica para ajudar empresas modernas a
-                        deixarem sua marca
-                        de forma sutil e duradoura. </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="stats-section" id="statsSection">
-        <div class="stats-container">
-
-            <header class="stats-header">
-                <!-- <span class="stats-tagline bold">O Mercado Atual</span> -->
-                <h2 class="stats-title">
-                    O mercado está saturado.<br>
-                    <span>Ser genérico custa caro.</span>
-                </h2>
+                <a href="#" class="logo">{ deploy }</a>
             </header>
 
-            <div class="stats-grid">
-
-
-
-                <div class="stat-card">
-                    <div class="stat-bar-wrapper">
-                        <div class="stat-bar" data-height="70%">
-                            <span class="stat-number">70%</span>
-                        </div>
-                    </div>
-                    <div class="stat-content">
-                        <p class="stat-text">
-                            <strong>das empresas perdem eficiência</strong> tentando adaptar rotinas manuais a softwares
-                            genéricos.
-                        </p>
-                    </div>
+            <div class="hero-footer-wrapper">
+                <div class="hero-header">
+                    <h1 class="hero-title">
+                        Para você que não quer ser <span class="italic">genérico</span>
+                    </h1>
+                    <p class="hero-desc">Se o seu site parou no tempo, sua marca não te representa mais ou os processos
+                        manuais estão engolindo o seu dia, <a href="#contact" class="link-animated">fale conosco</a>.
+                    </p>
                 </div>
-
-                <div class="stat-card">
-                    <div class="stat-bar-wrapper">
-                        <div class="stat-bar" data-height="88%">
-                            <span class="stat-number">88%</span>
-                        </div>
-                    </div>
-                    <div class="stat-content">
-                        <p class="stat-text">
-                            <strong>dos usuários não retornam</strong> a um site após uma experiência ruim de navegação
-                            ou design datado.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-bar-wrapper">
-                        <div class="stat-bar" data-height="95%">
-                            <span class="stat-number">95%</span>
-                        </div>
-                    </div>
-                    <div class="stat-content">
-                        <p class="stat-text">
-                            <strong>das marcas são esquecidas</strong> por não construírem uma identidade forte e um
-                            posicionamento único.
-                        </p>
-                    </div>
-                </div>
-
             </div>
-
-
         </div>
     </section>
 
-    <section class="process-section">
-        <canvas id="process-grain"></canvas>
+    <section class="initiative-section" id="initiative">
+        <header class="initiative-header gsap-reveal">
+            <span class="bold">Direto do Mercado Atual</span>
+            <span class="bold">Dados Não Mentem</span>
+        </header>
 
+        <div class="initiative-content">
+            <div class="initiative-left">
+                <span class="initiative-number active" data-index="0">75%</span>
+                <span class="initiative-number" data-index="1">86%</span>
+                <span class="initiative-number" data-index="2">80%</span>
+            </div>
+
+            <div class="initiative-right">
+                <div class="initiative-stat active" data-index="0">
+                    <h2 class="initiative-title">Da <span class="italic">credibilidade</span> da sua empresa é julgada pelo seu site.</h2>
+                    <p class="initiative-text">
+                        Seus clientes julgam a credibilidade do seu negócio exclusivamente pela qualidade do seu site.
+                    </p>
+                    <span class="stat-source"><a href="https://credibility.stanford.edu/" target="_blank"
+                            rel="noopener">Fonte: Stanford Web Credibility Project</a></span>
+                </div>
+
+                <div class="initiative-stat" data-index="1">
+                    <h2 class="initiative-title">Das pessoas só escolhem marcas com <span class="italic">imagem autêntica</span>.</h2>
+                    <p class="initiative-text">
+                        Suas vendas são definidas pela imagem, autenticidade e confiança que a sua marca passa.
+                    </p>
+                    <span class="stat-source"><a
+                            href="https://static1.squarespace.com/static/5b3df0ae266c07461c9f1a8c/t/5f315bbbd3c6806baedb4a38/1597070280545/Stackla-Data-Report-FINAL.compressed.pdf"
+                            target="_blank" rel="noopener">Fonte: Stackla Consumer Content Report</a></span>
+                </div>
+
+                <div class="initiative-stat" data-index="2">
+                    <h2 class="initiative-title">Das empresas já perderam negócios por <span class="italic">falta de tecnologia</span>.</h2>
+                    <p class="initiative-text">
+                        Empresas com infraestrutura tecnológica ultrapassada perdem clientes para concorrentes mais
+                        preparados.
+                    </p>
+                    <span class="stat-source"><a
+                            href="https://www.segs.com.br/seguros/436172-80-dos-lideres-de-tecnologia-no-brasil-afirmam-perder-negocios-por-falta-de-tecnologia-inclusiva-aponta-novo-relatorio/amp"
+                            target="_blank" rel="noopener">Fonte: Relatório Galileo Financial Technologies</a></span>
+                </div>
+
+                <div class="initiative-actions gsap-reveal">
+                    <a href="#contact" class="init-btn">Começe Um Projeto</a>
+                    <a href="#portfolio" class="init-btn">Ver Mais</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sobre" class="process-section">
         <div class="process-container">
-
-            <header class="process-header">
-                <span class="process-tagline bold">Nosso Processo</span>
-                <h2 class="process-title">Simplicidade na forma, precisão na execução</h2>
-            </header>
+            <h3 class="bold reveal-el">Complexidade não nos assusta</h3>
 
             <div class="process-grid">
-
-                <article class="process-card">
-                    <div class="process-media">
-                        <img src="entender.gif" alt="Etapa de entendimento do projeto">
+                <div class="process-step reveal-el">
+                    <div class="step-header">
+                        <span class="step-number">Estratégia</span>
+                        <span class="step-arrow">&rarr;</span>
                     </div>
-                    <h3 class="process-card-title">Entender</h3>
-                    <p class="process-card-desc">
-                        Mapeamos seus objetivos e contexto para transformar insights em uma estrutura estratégica.
-                    </p>
-                </article>
+                </div>
 
-                <article class="process-card">
-                    <div class="process-media">
-                        <img src="criar.gif" alt="Etapa de criação do projeto">
+                <div class="process-step reveal-el">
+                    <div class="step-header">
+                        <span class="step-number">Pesquisa</span>
+                        <span class="step-arrow">&rarr;</span>
                     </div>
-                    <h3 class="process-card-title">Criar</h3>
-                    <p class="process-card-desc">
-                        Projetamos a experiência e desenvolvemos um sistema digital robusto, fluido e de alta
-                        performance.
-                    </p>
-                </article>
+                </div>
 
-                <article class="process-card">
-                    <div class="process-media">
-                        <img src="evoluir.gif" alt="Etapa de evolução do projeto">
+                <div class="process-step reveal-el">
+                    <div class="step-header">
+                        <span class="step-number">Design</span>
+                        <span class="step-arrow">&rarr;</span>
                     </div>
-                    <h3 class="process-card-title">Evoluir</h3>
-                    <p class="process-card-desc">
-                        Analisamos dados e iteramos continuamente para que seu projeto acompanhe o seu crescimento.
-                    </p>
-                </article>
+                </div>
 
+                <div class="process-step reveal-el">
+                    <div class="step-header">
+                        <span class="step-number">Deploy</span>
+                    </div>
+                </div>
             </div>
+
+            <h2 class="process-title">
+                Desafios técnicos ou fluxos de informação complexos não são um problema para nós. É justamente onde há
+                complexidade que encontramos espaço para criar soluções simples, organizadas e eficientes. Transformamos
+                processos difíceis em interfaces intuitivas, garantindo que a experiência do seu cliente seja leve e sem
+                fricção.
+            </h2>
         </div>
     </section>
 
+    <section class="projects-section" id="portfolio">
+        <div class="section-header">
+                <h2 class="section-title">Sistemas que <span class="italic">conectam</span> pessoas</h2>
 
+        </div>
 
-    <section class="services-section" id="services">
+        <div class="cards-wrapper" id="cardStack">
+            <div class="card card-item">
+                <div class="card-inner">
+                    <img class="card-photo" src="./ChatGPT Image Aug 6, 2026, 04_56_35 PM.png" alt="Projeto 1" loading="lazy" />
+                </div>
+            </div>
+
+             <div class="card card-item">
+                <div class="card-inner">
+                    <img class="card-photo" src="./ChatGPT Image Aug 6, 2026, 04_46_04 PM.png" alt="Projeto 4" loading="lazy" />
+                </div>
+            </div>
+
+            <div class="card card-item">
+                <div class="card-inner">
+                    <img class="card-photo" src="./ChatGPT Image Aug 6, 2026, 05_57_59 PM.png" alt="Projeto 2" loading="lazy" />
+                </div>
+            </div>
+
+            <div class="card card-item">
+                <div class="card-inner">
+                    <img class="card-photo" src="./ChatGPT Image Aug 6, 2026, 06_11_16 PM.png" alt="Projeto 3" loading="lazy" />
+                </div>
+            </div>
+
+           
+        </div>
+
+        <div class="portfolio-footer reveal-el"><a class="btn btn-dark" href="#contact">(Re)Faça meu site
+            <svg viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+        </a></div> 
+    </section>
+
+    <section class="services-pinned-section">
         <div class="services-container">
-
-            <div class="services-top">
-                <div>
-                    <span class="bold">Nossos Serviços</span>
-                    <h3 class="services-title reveal-el">Criamos identidades (digitais) completas e sistemas web
-                        escaláveis.</h3>
-                </div>
-
+            <div class="services-left">
+                <span class="bold">Software, Consultoria & Branding</span>
             </div>
 
-            <div class="grid-columns">
-
-                <div class="service-column reveal-el">
-                    <h4 class="bold">Consultoria</h4>
-                    <ul class="service-list">
-                        <li>Diagnóstico Digital Completo</li>
-                        <li>Análise Competitiva & Benchmarking</li>
-                        <li>Plano Tech + Negócio</li>
-                    </ul>
-                    <a class="btn service-price">Saiba mais <svg viewBox="0 0 10 10" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" stroke-width="1.5"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                        </svg></a>
-                </div>
-
-                <div class="service-column reveal-el">
-                    <h4 class="bold">Software</h4>
-                    <ul class="service-list">
-                        <li>Websites & WebApps</li>
-                        <li>Analise de Performance</li>
-                    </ul>
-                    <a class="btn service-price">Saiba Mais <svg viewBox="0 0 10 10" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" stroke-width="1.5"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                        </svg></a>
-                </div>
-                <div class="service-column reveal-el">
-                    <h4 class="bold">Branding</h4>
-                    <ul class="service-list">
-                        <li>Identidade Visual</li>
-                        <li>Sistemas de Tipografia</li>
-                        <li>Diretrizes de Design</li>
-                    </ul>
-                    <a class="btn service-price">Saiba Mais <svg viewBox="0 0 10 10" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" stroke-width="1.5"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                        </svg></a>
-                </div>
-
-
-
-            </div>
-
-        </div>
-    </section>
-
-
-    <section class="portfolio-section" id="portfolio">
-        <canvas id="portfolio-grain"></canvas>
-
-        <div class="portfolio-header reveal-el">
-            <span class="bold">Projetos Selecionados</span>
-            <h2>O que Fazemos de Melhor</h2>
-        </div>
-
-        <div class="portfolio-cards">
-
-            <article class="portfolio-card">
-                <div class="card-screen">
-                    <img class="card-image" src="./image.png" alt="Projeto 1 — descreva aqui o nome/tipo do projeto"
-                        loading="lazy">
-                </div>
-            </article>
-
-            <article class="portfolio-card">
-                <div class="card-screen">
-                    <img class="card-image" src="./image5.png" alt="Projeto 2 — descreva aqui o nome/tipo do projeto"
-                        loading="lazy">
-                </div>
-            </article>
-
-            <article class="portfolio-card">
-                <div class="card-screen">
-                    <img class="card-image" src="./image3.png" alt="Projeto 3 — descreva aqui o nome/tipo do projeto"
-                        loading="lazy">
-                </div>
-            </article>
-
-            <article class="portfolio-card">
-                <div class="card-screen">
-                    <img class="card-image" src="./image4.png" alt="Projeto 4 — descreva aqui o nome/tipo do projeto"
-                        loading="lazy">
-                </div>
-            </article>
-
-        </div>
-
-        <div class="portfolio-footer reveal-el">
-            <a class="btn btn-outline" href="#contact">(Re)Faça meu site
-                <svg viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                </svg>
-            </a>
-        </div>
-    </section>
-
-    <section class="contact-section" id="contact">
-        <div class="contact-container">
-
-            <header class="contact-header">
-                <h2 class="contact-hero-title">Fale Conosco</h2>
-            </header>
-
-            <div class="contact-grid">
-
-                <div class="contact-info">
-                    <div class="info-block">
-                        <p class="bold">A sua história molda a nossa estratégia.</p>
-                        <p class="text-muted-info"> Por favor, compartilhe um pouco sobre você e seu negocio. Preencha
-                            este formulário para que possamos conhecer suas necessidades. Nosso objetivo é responder à
-                            sua solicitação dentro de 24 horas.
-                        </p>
-                    </div>
-
-                </div>
-
-                <form class="contact-form" id="whatsappForm" data-phone="5500000000000">
-
-                    <div class="form-group-label">
-                        <label>Ola, meu nome e <span class="required">(obrigatório)</span></label>
-                        <div class="form-row-2col">
-                            <input type="text" id="firstName" placeholder="Nome" required class="minimal-input">
-                            <input type="text" id="lastName" placeholder="Sobrenome" required class="minimal-input">
+            <div class="services-right">
+                <ul class="services-list">
+                    <li class="service-item">
+                        <div class="service-item-top">
+                            <h2 class="service-title">(Re)Branding</h2>
+                            <span class="service-number">01</span>
                         </div>
-                    </div>
-
-
-
-                    <div class="form-group">
-                        <label for="email">Meu E-mail e <span class="required">(obrigatório)</span></label>
-                        <input type="email" id="email" placeholder="seuemail@dominio.com" required
-                            class="minimal-input">
-                    </div>
-
-
-
-                    <div class="form-group">
-                        <label for="description">Estamos buscando uma soluçao para</label>
-                        <textarea id="description" rows="2" placeholder="Conte um pouco sobre suas ideias..."
-                            class="minimal-input"></textarea>
-                    </div>
-
-                    <div class="form-actions">
-                        <a href="#" id="whatsappSubmitBtn" class="btn btn-dark">
-                            Enviar via WhatsApp
-                            <svg viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </a>
-                    </div>
-
-                </form>
-
+                        <p>Desenvolvemos e redefinimos a identidade da sua marca para construir conexões autênticas com o seu público e destacar seu negócio no mercado.</p>
+                    </li>
+                    <li class="service-item">
+                        <div class="service-item-top">
+                            <h2 class="service-title">Web Design & Desenvolvimento</h2>
+                            <span class="service-number">02</span>
+                        </div>
+                        <p>Criamos sites intuitivos, rápidos e responsivos, focados em proporcionar a melhor experiência de navegação (UX) e interface (UI).</p>
+                    </li>
+                    <li class="service-item">
+                        <div class="service-item-top">
+                            <h2 class="service-title">Landing Pages</h2>
+                            <span class="service-number">03</span>
+                        </div>
+                        <p>Projetamos páginas de alta conversão, alinhadas à jornada do usuário e otimizadas para <span class="italic">transformar visitantes em clientes que ficam</span>.</p>
+                    </li>
+                    <li class="service-item">
+                        <div class="service-item-top">
+                            <h2 class="service-title">Estratégia & Pesquisa</h2>
+                            <span class="service-number">04</span>
+                        </div>
+                        <p>Analisamos dados, comportamento do consumidor e tendências de mercado para fundamentar decisões que impulsionam o crescimento do seu negócio.</p>
+                    </li>
+                    
+              
+                     <li class="service-item">
+                        <div class="service-item-top">
+                            <h2 class="service-title">Campanhas</h2>
+                            <span class="service-number">05</span>
+                        </div>
+                        <p>Elaboramos campanhas multicanal focadas em atração, engajamento e alcance de objetivos comerciais específicos.</p>
+                    </li>
+                </ul>
             </div>
         </div>
     </section>
 
     <footer class="footer-container" id="footer">
         <canvas id="footer-grain"></canvas>
+        <section class="initiative-callout-section">
+            <div class="initiative-callout-container">
+                <div class="initiative-callout-left">
+                    <h2 class="initiative-callout-title">
+                        Pronto pra <span class="italic">transformar</span> seu negocio?
+                    </h2>
+                    <p class="initiative-callout-desc">
+                        Por favor, preencha o formulario e fale um pouco sobre você e seu negócio.
+                    </p>
+                </div>
+
+                <div class="initiative-callout-right">
+                    <form class="contact-form callout-form reveal-el" id="whatsappForm" data-phone="5500000000000">
+                        <div class="form-group-label">
+                            <label>Olá, meu nome é <span class="required">*</span></label>
+                            <div class="form-row-2col">
+                                <input type="text" id="firstName" placeholder="Nome" required class="minimal-input">
+                                <input type="text" id="lastName" placeholder="Sobrenome" required class="minimal-input">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Meu e-mail é <span class="required">*</span></label>
+                            <input type="email" id="email" placeholder="seuemail@dominio.com" required
+                                class="minimal-input">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Estamos buscando uma solução para <span
+                                    class="required">*</span></label>
+                            <textarea id="description" rows="2" placeholder="Conte um pouco sobre suas ideias..."
+                                class="minimal-input"></textarea>
+                        </div>
+
+                        <div class="form-actions">
+                            <a href="#" id="whatsappSubmitBtn" class="btn btn-callout">
+                                Enviar via WhatsApp
+                                <svg viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <hr class="footer-divider" />
 
         <div class="footer-top">
             <div class="footer-logo">
@@ -369,7 +303,6 @@
 
             <div class="footer-info-group">
                 <div class="footer-address">
-                    <p>Deploy Ideas Studio</p>
                     <p>Apoiamos a causa de criar marcas</p>
                     <p>com personalidade, não só mais um site.</p>
                     <p>Brasil</p>
@@ -380,32 +313,18 @@
                     <a href="#services" class="link-animated">Sobre</a>
                 </nav>
 
-                <nav class="footer-nav">
-                    <a href="#contact" class="link-animated">Contato</a>
-                </nav>
-
                 <div class="footer-social">
-                    <a href="https://wa.me/5500000000000" target="_blank" rel="noopener" class="link-animated">WhatsApp ↗</a>
+                    <a href="https://wa.me/5500000000000" target="_blank" rel="noopener"
+                        class="link-animated">WhatsApp</a>
                 </div>
             </div>
         </div>
 
-        <div class="footer-middle">
-            <div class="newsletter-wrapper">
-                <p class="newsletter-label">Receba novidades do<br>Deploy Ideas Studio</p>
-                <form class="newsletter-form" action="#" method="POST">
-                    <input type="email" placeholder="Digite seu e-mail" required />
-                    <button type="submit">Inscrever-se &rarr;</button>
-                </form>
-            </div>
-        </div>
-
         <div class="footer-bottom">
-            <span>Criado & Desenvolvido por deploy</span>
+            <a class="link-animated" href="https://deployideas.com">Feito por deploy</a>
         </div>
     </footer>
 
-    <script src="script.js"></script>
 </body>
 
 </html>
