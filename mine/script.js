@@ -1,8 +1,10 @@
 /**
  * { deploy } — creative coding & interactive engine
  * Flawless GSAP + Lenis Sync + Unified Mobile & Desktop Engine
- * v3 — fix: spans .italic dentro de .section-title e .process-title
- *       agora sobrevivem à reconstrução do texto animado (word/char split)
+ * v4 — fix: carrossel de portfolio mantém comportamento horizontal
+ *       igual no mobile (ajuste feito via CSS); removido o efeito de
+ *       scroll-trigger ("chega pra lá") dos service-items no mobile —
+ *       agora só existe hover no desktop, sem transform no mobile.
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -59,6 +61,10 @@ document.addEventListener("DOMContentLoaded", () => {
             smoothTouch: true,
             touchMultiplier: isMobileViewport ? 1.8 : 1.5
         });
+        // Nota: o carrossel do portfolio agora não depende de scroll
+        // nativo/touch nenhum — ele é 100% pinado e movido via
+        // transform pelo ScrollTrigger (ver seção 5.2), então o Lenis
+        // pode voltar à configuração padrão sem nenhum conflito.
 
         lenis.on("scroll", ScrollTrigger.update);
 
@@ -307,8 +313,37 @@ document.addEventListener("DOMContentLoaded", () => {
             // --- 5.1 Hero Shrink Animation — DESATIVADO ---
             // (removido temporariamente; reativar quando necessário)
 
-            // --- 5.2 Portfolio Scroll — DESATIVADO ---
-            // (removido temporariamente; reativar quando necessário)
+            // --- 5.2 Portfolio Pin + Scroll Horizontal ---
+            // A seção pina na tela; o scroll vertical do usuário é
+            // convertido em translateX no .cards-wrapper.
+            // Importante: usamos onUpdate + gsap.set (sem tween/scrub)
+            // porque o Lenis já suaviza o scroll da página inteira.
+            // Um scrub por cima disso cria uma segunda camada de
+            // suavização, e as duas competindo é o que causava os
+            // "pulos" — o movimento atrasava e depois corria atrás.
+            // Sem scrub, o wrapper segue o progresso do scroll 1:1,
+            // e a suavidade vem só do Lenis (uma única fonte).
+            const portfolioSection = document.querySelector(".projects-section");
+            const portfolioWrapper = document.querySelector(".cards-wrapper");
+
+            if (portfolioSection && portfolioWrapper) {
+                const getPortfolioScrollDistance = () =>
+                    Math.max(0, portfolioWrapper.scrollWidth - portfolioSection.clientWidth);
+
+                gsap.set(portfolioWrapper, { x: 0 });
+
+                ScrollTrigger.create({
+                    trigger: portfolioSection,
+                    start: "top top",
+                    end: () => "+=" + getPortfolioScrollDistance(),
+                    pin: true,
+                    anticipatePin: 1,
+                    invalidateOnRefresh: true,
+                    onUpdate: (self) => {
+                        gsap.set(portfolioWrapper, { x: -getPortfolioScrollDistance() * self.progress });
+                    }
+                });
+            }
 
             // --- 5.3 Initiative Section Pin Sync (roda em ambas as telas) ---
             const initiativeSection = document.querySelector(".initiative-section");
@@ -340,7 +375,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 initiativeStats.forEach((el, i) => el.classList.toggle("active", i === 0));
             }
 
-            // --- 5.4 Service Items — hover no desktop, scroll-trigger no mobile ---
+            // --- 5.4 Service Items — hover apenas no desktop ---
+            // No mobile os itens não sofrem mais nenhuma transformação
+            // de X controlada por scroll (removido o "chega pra lá").
             const serviceItems = document.querySelectorAll(".service-item");
 
             if (isDesktop) {
@@ -349,22 +386,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     const leave = () => gsap.to(item, { x: 0, duration: 0.3, ease: "power2.out" });
                     item.addEventListener("mouseenter", enter);
                     item.addEventListener("mouseleave", leave);
-                });
-            } else {
-                serviceItems.forEach((item) => {
-                    gsap.fromTo(item,
-                        { x: 0 },
-                        {
-                            x: 12,
-                            duration: 0.4,
-                            ease: "power2.out",
-                            scrollTrigger: {
-                                trigger: item,
-                                start: "top 80%",
-                                toggleActions: "play reverse play reverse"
-                            }
-                        }
-                    );
                 });
             }
 

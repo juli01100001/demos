@@ -384,7 +384,7 @@ h3 {
 }
 
 .initiative-title {
-    font-size: 4.2vw;
+    font-size: 5vw;
     line-height: 1.02;
     font-weight: 400;
     letter-spacing: -0.015em;
@@ -415,7 +415,7 @@ h3 {
     display: flex;
     gap: 1vw;
     position: relative;
-    margin-top: 20vw;
+    margin-top: 24vw;
 }
 
 .init-btn {
@@ -516,7 +516,7 @@ h3 {
 }
 
 /* ==========================================
-   6. PORTFOLIO / PROJECTS SECTION (SCROLL HORIZONTAL NO DESKTOP)
+   6. PORTFOLIO / PROJECTS SECTION (SCROLL HORIZONTAL — DESKTOP E MOBILE)
    ========================================== */
 .projects-section {
     width: 100vw;
@@ -553,32 +553,22 @@ h3 {
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: nowrap !important;
-    /* Importante: impede quebra de linha no GSAP (desktop) */
+    /* Importante: impede quebra de linha, tanto no desktop quanto no mobile */
     align-items: center;
     gap: 3vw;
     width: max-content !important;
-    /* Estende horizontalmente além da tela (desktop) */
+    /* Estende horizontalmente além da tela — o movimento é 100% via
+       transform (translateX) controlado pelo ScrollTrigger no pin
+       da .projects-section, não há overflow/scroll nativo aqui. */
     min-width: max-content !important;
     align-self: flex-start !important;
     height: 60vh;
     will-change: transform;
-    max-width: 100%;
-    overflow-x: auto;
-    /* fallback nativo enquanto o drag via GSAP (bloco 5.2) estiver
-       desativado — permite navegar os cards sem travar o scroll
-       vertical da página. Reativando o GSAP depois, isso não atrapalha
-       (ele controla via transform, não via scroll nativo do elemento) */
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x proximity;
-    scrollbar-width: none;
-}
-
-.cards-wrapper::-webkit-scrollbar {
-    display: none;
+    max-width: none;
+    overflow: visible;
 }
 
 .cards-wrapper .card-item {
-    scroll-snap-align: start;
     position: relative !important;
     width: 45vw !important;
     /* Força o tamanho ideal para os cards (desktop) */
@@ -1053,20 +1043,19 @@ h3 {
     }
 
     .initiative-title {
-        font-size: 2rem;
-        line-height: 1.15;
-        margin-bottom: 12px;
+        font-size: 2.5rem;
+        margin-bottom: 20px;
     }
 
     .initiative-text {
-        font-size: 0.95rem;
-        line-height: 1.5;
+        font-size: 1rem;
+        line-height: 1.2;
         margin-bottom: 12px;
         max-width: 100%;
     }
 
     .stat-source {
-        font-size: 0.85rem;
+        font-size: 0.9rem;
         display: block;
     }
 
@@ -1103,6 +1092,25 @@ h3 {
         gap: 32px;
     }
 
+    .process-section .process-step {
+        align-items: center;
+        text-align: center;
+    }
+
+    .process-section .step-header {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .process-section .step-arrow {
+        display: inline-block;
+        transform: rotate(90deg);
+    }
+
+    .process-section .process-step:last-child .step-arrow {
+        display: none;
+    }
+
     .process-section .step-number {
         font-size: 3.2rem;
     }
@@ -1112,11 +1120,12 @@ h3 {
     }
 
     .projects-section {
-        width: 100% !important;
-        height: auto !important;
-        min-height: auto !important;
-        padding: 64px 24px !important;
-        overflow: visible !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        /* precisa ficar em 100vh (igual desktop) pra o pin do
+           ScrollTrigger funcionar do mesmo jeito no mobile */
+        padding: 24px !important;
+        overflow: hidden !important;
     }
 
     .section-title {
@@ -1124,20 +1133,17 @@ h3 {
         margin-bottom: 24px;
     }
 
+    /* Carrossel mobile: mesmo comportamento do desktop — o
+       ScrollTrigger pina a seção e translada o wrapper via transform.
+       Só ajustamos o tamanho do card pra caber melhor na tela. */
     .projects-section .cards-wrapper {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 20px !important;
-        width: 100% !important;
-        min-width: 100% !important;
-        height: auto !important;
-        overflow: visible !important;
+        height: 46vh;
+        gap: 16px;
     }
 
     .projects-section .cards-wrapper .card-item {
-        position: relative !important;
-        height: 320px !important;
-        width: 100% !important;
+        width: 78vw !important;
+        height: 100% !important;
     }
 
     .services-pinned-section .services-container {
@@ -1188,7 +1194,7 @@ h3 {
     }
 
     .initiative-callout-title {
-        font-size: 3.2rem;
+        font-size: 4.2rem;
     }
 
     .initiative-callout-desc {
