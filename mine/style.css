@@ -198,7 +198,8 @@ h3 {
 
 .hero-video-wrapper {
     background-color: var(--cream);
-        margin: 2vw;
+    margin: 1vw;
+    border-radius: 1vw;
 
 }
 
@@ -208,7 +209,17 @@ h3 {
     object-fit: cover;
 }
 
+.hero-overlay,
+.hero-video-wrapper {
+    margin: 1vw;
+    border-radius: 1vw;
+}
+
 .hero-overlay {
+    margin: 1vw;
+    border-radius: 1vw;
+
+
     z-index: 1;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.323) 100%, rgba(0, 0, 0, 0.494) 100%);
     pointer-events: none;
@@ -233,10 +244,12 @@ h3 {
     align-items: center;
     color: #ffffff;
 }
+
 .links {
     display: none;
     flex-direction: column;
 }
+
 .logo {
     font-size: 2vw;
     font-family: var(--font-serif);
@@ -516,6 +529,10 @@ h3 {
     z-index: 10;
     background-color: var(--cream);
     box-sizing: border-box;
+    overflow-x: hidden;
+    /* contém o cards-wrapper (max-content) e evita o vazamento horizontal
+       que estava travando o scroll vertical da página com o drag do GSAP
+       (bloco 5.2) desativado */
 }
 
 .projects-section .section-header {
@@ -545,9 +562,23 @@ h3 {
     align-self: flex-start !important;
     height: 60vh;
     will-change: transform;
+    max-width: 100%;
+    overflow-x: auto;
+    /* fallback nativo enquanto o drag via GSAP (bloco 5.2) estiver
+       desativado — permite navegar os cards sem travar o scroll
+       vertical da página. Reativando o GSAP depois, isso não atrapalha
+       (ele controla via transform, não via scroll nativo do elemento) */
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+}
+
+.cards-wrapper::-webkit-scrollbar {
+    display: none;
 }
 
 .cards-wrapper .card-item {
+    scroll-snap-align: start;
     position: relative !important;
     width: 45vw !important;
     /* Força o tamanho ideal para os cards (desktop) */
@@ -827,6 +858,7 @@ h3 {
     background-color: transparent;
     color: var(--cream);
 }
+
 .btn-dark {
     background-color: #122ee2;
     color: #faf9f5;
@@ -903,7 +935,23 @@ h3 {
     font-size: 0.7vw;
     color: rgba(250, 249, 245, 0.6);
 }
+
+@media (max-width: 1024px) {
+
+    .hero-overlay,
+    .hero-video-wrapper, .footer-container {
+        margin: 0.8rem;
+        border-radius: 0.8rem;
+    }
+    .hero-content {
+   
+    padding: 1.5rem;
+}
+
+}
+
 @media (max-width: 767px) {
+
     html,
     body {
         overflow-x: hidden !important;
@@ -968,7 +1016,7 @@ h3 {
         position: relative;
         min-height: 38vw;
         display: flex;
-      
+
         align-items: center;
     }
 
@@ -984,6 +1032,7 @@ h3 {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        gap: 2vh;
         min-height: 280px;
     }
 
@@ -1101,8 +1150,8 @@ h3 {
         margin-bottom: 24px;
     }
 
-    .services-left span.bold, 
-    .initiative-header span, 
+    .services-left span.bold,
+    .initiative-header span,
     .process-section h3.bold {
         font-size: 16px;
     }
@@ -1186,7 +1235,5 @@ h3 {
         font-size: 1rem;
     }
 
-    .footer-container {
-        border-radius: 16px;
-    }
+  
 }

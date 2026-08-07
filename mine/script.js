@@ -304,76 +304,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (PREFERS_REDUCED_MOTION) return;
 
-            // --- 5.1 Hero Shrink Animation (roda em ambas as telas) ---
-            const heroSection = document.querySelector(".hero-section");
-            const heroWrapper = document.querySelector(".hero-video-wrapper");
-            const heroOverlay = document.querySelector(".hero-overlay");
+            // --- 5.1 Hero Shrink Animation — DESATIVADO ---
+            // (removido temporariamente; reativar quando necessário)
 
-            if (heroSection && heroWrapper && heroOverlay) {
-                gsap.set([heroWrapper, heroOverlay], {
-                    top: 0, left: 0, right: 0, bottom: 0, borderRadius: 0
-                });
-
-                gsap.to([heroWrapper, heroOverlay], {
-                    top: isMobile ? "3vw" : "1.5vw",
-                    left: isMobile ? "3vw" : "1.5vw",
-                    right: isMobile ? "3vw" : "1.5vw",
-                    bottom: isMobile ? "3vw" : "1.5vw",
-                    borderRadius: isMobile ? "6vw" : "4vw",
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: heroSection,
-                        start: "top top",
-                        end: "bottom top",
-                        scrub: 1,
-                        invalidateOnRefresh: true
-                    }
-                });
-            }
-
-            // --- 5.2 Portfolio Scroll ---
-            // pin + scroll horizontal só no desktop; no mobile, reveal
-            // simples por card ao entrar na viewport.
-            const projectsSection = document.querySelector(".projects-section");
-            const cardsWrapper = document.querySelector(".cards-wrapper");
-
-            if (isDesktop && projectsSection && cardsWrapper) {
-                const getScrollAmount = () => {
-                    return -(cardsWrapper.scrollWidth - window.innerWidth + (window.innerWidth * 0.05));
-                };
-
-                gsap.to(cardsWrapper, {
-                    x: getScrollAmount,
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: projectsSection,
-                        pin: true,
-                        start: "top top",
-                        end: () => `+=${cardsWrapper.scrollWidth}`,
-                        scrub: 1,
-                        anticipatePin: 1,
-                        invalidateOnRefresh: true
-                    }
-                });
-            } else if (isMobile && cardsWrapper) {
-                const mobileCards = cardsWrapper.querySelectorAll(".card-item");
-                mobileCards.forEach((card) => {
-                    gsap.fromTo(card,
-                        { y: 24, opacity: 0 },
-                        {
-                            y: 0,
-                            opacity: 1,
-                            duration: 0.6,
-                            ease: "power2.out",
-                            scrollTrigger: {
-                                trigger: card,
-                                start: "top 90%",
-                                toggleActions: "play none none reverse"
-                            }
-                        }
-                    );
-                });
-            }
+            // --- 5.2 Portfolio Scroll — DESATIVADO ---
+            // (removido temporariamente; reativar quando necessário)
 
             // --- 5.3 Initiative Section Pin Sync (roda em ambas as telas) ---
             const initiativeSection = document.querySelector(".initiative-section");
@@ -456,7 +391,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Cleanup ao trocar de breakpoint (matchMedia re-executa o contexto)
             return () => {
-                if (cardsWrapper) gsap.set(cardsWrapper, { clearProps: "transform" });
                 serviceItems.forEach((item) => gsap.set(item, { clearProps: "transform" }));
             };
         }
