@@ -1,15 +1,16 @@
 /**
  * { deploy } — creative coding & interactive engine
  * Flawless GSAP + Lenis Sync + Unified Mobile & Desktop Engine
- * v5 — PERFORMANCE UPDATE: Otimização profunda para Mobile
+ * v4 — fix: carrossel de portfolio mantém comportamento horizontal
+ *       igual no mobile (ajuste feito via CSS); removido o efeito de
+ *       scroll-trigger ("chega pra lá") dos service-items no mobile —
+ *       agora só existe hover no desktop, sem transform no mobile.
  */
 
 document.addEventListener("DOMContentLoaded", () => {
     "use strict";
 
     const PREFERS_REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    // Movido para escopo global no topo para reaproveitamento
-    let isMobileViewport = window.matchMedia("(max-width: 767px)").matches;
 
     if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") {
         console.error("[deploy engine] GSAP ou ScrollTrigger não foram carregados.");
@@ -19,10 +20,15 @@ document.addEventListener("DOMContentLoaded", () => {
     gsap.registerPlugin(ScrollTrigger);
 
     // ==========================================
-    // 0. HELPER — preserva itálico
+    // 0. HELPER — preserva itálico ao quebrar texto em palavras
     // ==========================================
+    // Percorre os childNodes originais do elemento (antes de qualquer
+    // reescrita) e devolve um array de palavras marcando quais vieram
+    // de dentro de um <span class="italic">, pra poder reaplicar a
+    // classe depois que o texto for reconstruído em spans de animação.
     function getTextWithItalicMap(el) {
-        const result = [];
+        const result = []; // [{ text: "conectam", italic: true }, ...]
+
         el.childNodes.forEach((node) => {
             if (node.nodeType === Node.TEXT_NODE) {
                 const text = node.textContent.trim();
@@ -37,22 +43,28 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
         });
+
         return result;
     }
 
     // ==========================================
-    // 1. SMOOTH SCROLL (LENIS) — CORREÇÃO MOBILE
+    // 1. SMOOTH SCROLL (LENIS) — UNIFICADO
     // ==========================================
     let lenis = null;
+    let isMobileViewport = window.matchMedia("(max-width: 767px)").matches;
 
     if (!PREFERS_REDUCED_MOTION && typeof Lenis !== "undefined") {
         lenis = new Lenis({
-            duration: 1.0,
+            duration: isMobileViewport ? 0.8 : 1.0,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             smoothWheel: true,
-            // CRÍTICO: Desativado no mobile para usar o scroll nativo (zero lag)
-            smoothTouch: false 
+            smoothTouch: true,
+            touchMultiplier: isMobileViewport ? 1.8 : 1.5
         });
+        // Nota: o carrossel do portfolio agora não depende de scroll
+        // nativo/touch nenhum — ele é 100% pinado e movido via
+        // transform pelo ScrollTrigger (ver seção 5.2), então o Lenis
+        // pode voltar à configuração padrão sem nenhum conflito.
 
         lenis.on("scroll", ScrollTrigger.update);
 
@@ -64,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ==========================================
-    // 1.5 PRELOADER 
+    // 1.5 PRELOADER — esconde overlay e revela o hero quando pronto
     // ==========================================
     (function initPreloader() {
         const preloader = document.getElementById("sitePreloader");
@@ -84,9 +96,14 @@ document.addEventListener("DOMContentLoaded", () => {
             preloader.classList.add("is-hidden");
             if (heroContent) heroContent.classList.add("is-revealed");
 
+            // Só depois do reveal é que faz sentido recalcular os
+            // ScrollTriggers — evita medir layout enquanto o preloader
+            // ainda está cobrindo a tela.
             requestAnimationFrame(() => ScrollTrigger.refresh());
         }
 
+        // Timeout de segurança: nunca deixa o site preso no preloader
+        // (ex: vídeo que nunca dispara 'canplay' numa conexão ruim).
         const safetyTimeout = setTimeout(() => {
             readyFlags = { fonts: true, page: true, video: true };
             tryRelease();
@@ -124,11 +141,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         tryRelease();
+        // (o setTimeout acima é limpo automaticamente já que tryRelease
+        // marca released=true e ignora chamadas futuras; deixamos o
+        // clearTimeout implícito pela flag)
         void safetyTimeout;
     })();
 
     // ==========================================
-    // 2. CINEMATIC GRAIN ENGINE — CORREÇÃO MOBILE
+    // 2. CINEMATIC GRAIN ENGINE (sem alterações)
     // ==========================================
     function initPerformanceGrain(canvasId) {
         const canvas = document.getElementById(canvasId);
@@ -171,8 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         drawGrain();
 
-        // CRÍTICO: Anima o grain apenas no Desktop. No mobile, fica estático para poupar GPU.
-        if (!PREFERS_REDUCED_MOTION && !isMobileViewport) {
+        if (!PREFERS_REDUCED_MOTION) {
             let lastFrameTime = 0;
             const fpsInterval = 1000 / 12;
 
@@ -209,7 +228,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initPerformanceGrain("footer-grain");
 
     // ==========================================
-    // 3. FORMS & NAV ANCHORS 
+    // 3. FORMS & NAV ANCHORS (sem alterações)
     // ==========================================
     const whatsappForm = document.getElementById('whatsappForm');
     const whatsappSubmitBtn = document.getElementById('whatsappSubmitBtn');
@@ -255,9 +274,98 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ==========================================
-    // 4. GLOBAL TEXT ANIMATIONS — MOVIDO PARA MATCHMEDIA
+    // 4. GLOBAL TEXT ANIMATIONS
+    //    (fix: itálico preservado via getTextWithItalicMap)
     // ==========================================
-    // As animações de texto pesadas foram movidas para o contexto Desktop abaixo.
+    if (!PREFERS_REDUCED_MOTION) {
+        const sectionTitle = document.querySelector(".section-title");
+        if (sectionTitle) {
+            const wordData = getTextWithItalicMap(sectionTitle);
+            const ariaText = wordData.map((w) => w.text).join(" ");
+            sectionTitle.setAttribute("aria-label", ariaText);
+            sectionTitle.innerHTML = "";
+
+            const fragment = document.createDocumentFragment();
+
+            wordData.forEach((wordObj, wordIndex) => {
+                const maskSpan = document.createElement("span");
+                maskSpan.style.display = "inline-block";
+                maskSpan.style.overflow = "hidden";
+                maskSpan.style.verticalAlign = "top";
+
+                const wordSpan = document.createElement("span");
+                wordSpan.className = "editorial-word" + (wordObj.italic ? " italic" : "");
+                wordSpan.style.display = "inline-block";
+                wordSpan.setAttribute("aria-hidden", "true");
+                wordSpan.textContent = wordObj.text;
+
+                maskSpan.appendChild(wordSpan);
+                fragment.appendChild(maskSpan);
+
+                if (wordIndex < wordData.length - 1) {
+                    fragment.appendChild(document.createTextNode("\u00A0"));
+                }
+            });
+
+            sectionTitle.appendChild(fragment);
+
+            gsap.fromTo(
+                sectionTitle.querySelectorAll(".editorial-word"),
+                { y: "110%" },
+                {
+                    y: "0%",
+                    duration: 1,
+                    stagger: 0.08,
+                    ease: "power4.out",
+                    scrollTrigger: {
+                        trigger: sectionTitle,
+                        start: "top 85%",
+                        end: "top 45%",
+                        scrub: 1
+                    }
+                }
+            );
+        }
+
+        const processTitle = document.querySelector(".process-title");
+        if (processTitle) {
+            const wordData = getTextWithItalicMap(processTitle);
+            const ariaText = wordData.map((w) => w.text).join(" ");
+            processTitle.setAttribute("aria-label", ariaText);
+            processTitle.innerHTML = "";
+
+            const fragment = document.createDocumentFragment();
+
+            wordData.forEach((wordObj, wordIndex) => {
+                const wordSpan = document.createElement("span");
+                wordSpan.className = "letter-word" + (wordObj.italic ? " italic" : "");
+                wordSpan.setAttribute("aria-hidden", "true");
+
+                wordObj.text.split("").forEach((char) => {
+                    const charSpan = document.createElement("span");
+                    charSpan.className = "char";
+                    charSpan.textContent = char;
+                    wordSpan.appendChild(charSpan);
+                });
+
+                fragment.appendChild(wordSpan);
+                if (wordIndex < wordData.length - 1) fragment.appendChild(document.createTextNode("\u00A0"));
+            });
+
+            processTitle.appendChild(fragment);
+
+            gsap.fromTo(
+                processTitle.querySelectorAll(".char"),
+                { color: "rgba(18, 46, 226, 0.18)" },
+                {
+                    color: "#122ee2",
+                    stagger: 0.02,
+                    ease: "none",
+                    scrollTrigger: { trigger: processTitle, start: "top 85%", end: "bottom 50%", scrub: true }
+                }
+            );
+        }
+    }
 
     // ==========================================
     // 5. GSAP MATCHMEDIA (ENGINE UNIFICADO)
@@ -274,89 +382,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (PREFERS_REDUCED_MOTION) return;
 
-            // --- 5.1 Global Text Animations (Otimizado por dispositivo) ---
-            const sectionTitle = document.querySelector(".section-title");
-            const processTitle = document.querySelector(".process-title");
-
-            if (isDesktop) {
-                // DESKTOP: Mantém o efeito completo de palavras e letras
-                if (sectionTitle && !sectionTitle.dataset.splitted) {
-                    const wordData = getTextWithItalicMap(sectionTitle);
-                    sectionTitle.setAttribute("aria-label", wordData.map((w) => w.text).join(" "));
-                    sectionTitle.innerHTML = "";
-                    const fragment = document.createDocumentFragment();
-
-                    wordData.forEach((wordObj, wordIndex) => {
-                        const maskSpan = document.createElement("span");
-                        maskSpan.style.display = "inline-block";
-                        maskSpan.style.overflow = "hidden";
-                        maskSpan.style.verticalAlign = "top";
-
-                        const wordSpan = document.createElement("span");
-                        wordSpan.className = "editorial-word" + (wordObj.italic ? " italic" : "");
-                        wordSpan.style.display = "inline-block";
-                        wordSpan.setAttribute("aria-hidden", "true");
-                        wordSpan.textContent = wordObj.text;
-
-                        maskSpan.appendChild(wordSpan);
-                        fragment.appendChild(maskSpan);
-
-                        if (wordIndex < wordData.length - 1) fragment.appendChild(document.createTextNode("\u00A0"));
-                    });
-                    sectionTitle.appendChild(fragment);
-                    sectionTitle.dataset.splitted = "true";
-
-                    gsap.fromTo(sectionTitle.querySelectorAll(".editorial-word"),
-                        { y: "110%" },
-                        { y: "0%", duration: 1, stagger: 0.08, ease: "power4.out", scrollTrigger: { trigger: sectionTitle, start: "top 85%", end: "top 45%", scrub: 1 } }
-                    );
-                }
-
-                if (processTitle && !processTitle.dataset.splitted) {
-                    const wordData = getTextWithItalicMap(processTitle);
-                    processTitle.setAttribute("aria-label", wordData.map((w) => w.text).join(" "));
-                    processTitle.innerHTML = "";
-                    const fragment = document.createDocumentFragment();
-
-                    wordData.forEach((wordObj, wordIndex) => {
-                        const wordSpan = document.createElement("span");
-                        wordSpan.className = "letter-word" + (wordObj.italic ? " italic" : "");
-                        wordSpan.setAttribute("aria-hidden", "true");
-
-                        wordObj.text.split("").forEach((char) => {
-                            const charSpan = document.createElement("span");
-                            charSpan.className = "char";
-                            charSpan.textContent = char;
-                            wordSpan.appendChild(charSpan);
-                        });
-                        fragment.appendChild(wordSpan);
-                        if (wordIndex < wordData.length - 1) fragment.appendChild(document.createTextNode("\u00A0"));
-                    });
-                    processTitle.appendChild(fragment);
-                    processTitle.dataset.splitted = "true";
-
-                    gsap.fromTo(processTitle.querySelectorAll(".char"),
-                        { color: "rgba(18, 46, 226, 0.18)" },
-                        { color: "#122ee2", stagger: 0.02, ease: "none", scrollTrigger: { trigger: processTitle, start: "top 85%", end: "bottom 50%", scrub: true } }
-                    );
-                }
-            } else {
-                // MOBILE: Animação unificada leve (Fade + SlideUp simples)
-                if (sectionTitle) {
-                    gsap.fromTo(sectionTitle, 
-                        { y: 30, opacity: 0 }, 
-                        { y: 0, opacity: 1, duration: 1, ease: "power3.out", scrollTrigger: { trigger: sectionTitle, start: "top 85%" } }
-                    );
-                }
-                if (processTitle) {
-                    gsap.fromTo(processTitle, 
-                        { opacity: 0 }, 
-                        { opacity: 1, duration: 1, ease: "power3.out", scrollTrigger: { trigger: processTitle, start: "top 85%" } }
-                    );
-                }
-            }
+            // --- 5.1 Hero Shrink Animation — DESATIVADO ---
+            // (removido temporariamente; reativar quando necessário)
 
             // --- 5.2 Portfolio Pin + Scroll Horizontal ---
+            // A seção pina na tela; o scroll vertical do usuário é
+            // convertido em translateX no .cards-wrapper.
+            // Importante: usamos onUpdate + gsap.set (sem tween/scrub)
+            // porque o Lenis já suaviza o scroll da página inteira.
+            // Um scrub por cima disso cria uma segunda camada de
+            // suavização, e as duas competindo é o que causava os
+            // "pulos" — o movimento atrasava e depois corria atrás.
+            // Sem scrub, o wrapper segue o progresso do scroll 1:1,
+            // e a suavidade vem só do Lenis (uma única fonte).
+            //
+            // PERFORMANCE: ler `scrollWidth` força um reflow do layout.
+            // Fazer isso dentro do onUpdate (chamado a cada frame de
+            // scroll) é o que deixava o mobile lento — o navegador
+            // recalculava o layout inteiro dezenas de vezes por
+            // segundo. Agora a distância é calculada só no refresh
+            // (load, resize, fonts.ready) e cacheada; o onUpdate só lê
+            // a variável, sem tocar no DOM.
             const portfolioSection = document.querySelector(".projects-section");
             const portfolioWrapper = document.querySelector(".cards-wrapper");
 
@@ -364,7 +410,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 let cachedPortfolioDistance = 0;
 
                 const recalcPortfolioDistance = () => {
-                    cachedPortfolioDistance = Math.max(0, portfolioWrapper.scrollWidth - portfolioSection.clientWidth);
+                    cachedPortfolioDistance = Math.max(
+                        0,
+                        portfolioWrapper.scrollWidth - portfolioSection.clientWidth
+                    );
                     return cachedPortfolioDistance;
                 };
 
@@ -383,7 +432,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             }
 
-            // --- 5.3 Initiative Section Pin Sync ---
+            // --- 5.3 Initiative Section Pin Sync (roda em ambas as telas) ---
             const initiativeSection = document.querySelector(".initiative-section");
             const initiativeNumbers = document.querySelectorAll(".initiative-number");
             const initiativeStats = document.querySelectorAll(".initiative-stat");
@@ -393,13 +442,17 @@ document.addEventListener("DOMContentLoaded", () => {
                     trigger: initiativeSection,
                     pin: true,
                     start: "top top",
-                    end: () => "+=" + Math.round(window.innerHeight * (isMobile ? 1.5 : 3)), // Encurtado no mobile para não prender tanto o scroll
-                    scrub: true, // Scrub padrão substitui a lentidão anterior
+                    end: () => "+=" + Math.round(window.innerHeight * (isMobile ? 2.2 : 3)),
+                    scrub: 1,
                     anticipatePin: 1,
                     invalidateOnRefresh: true,
                     onUpdate: (self) => {
                         const step = 1 / initiativeNumbers.length;
-                        const index = Math.min(Math.floor(self.progress / step), initiativeNumbers.length - 1);
+                        const index = Math.min(
+                            Math.floor(self.progress / step),
+                            initiativeNumbers.length - 1
+                        );
+
                         initiativeNumbers.forEach((el, i) => el.classList.toggle("active", i === index));
                         initiativeStats.forEach((el, i) => el.classList.toggle("active", i === index));
                     }
@@ -409,8 +462,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 initiativeStats.forEach((el, i) => el.classList.toggle("active", i === 0));
             }
 
-            // --- 5.4 Service Items ---
+            // --- 5.4 Service Items — hover apenas no desktop ---
+            // No mobile os itens não sofrem mais nenhuma transformação
+            // de X controlada por scroll (removido o "chega pra lá").
             const serviceItems = document.querySelectorAll(".service-item");
+
             if (isDesktop) {
                 serviceItems.forEach((item) => {
                     const enter = () => gsap.to(item, { x: 20, duration: 0.3, ease: "power2.out" });
@@ -420,17 +476,28 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             }
 
-            // --- 5.5 Card entrance ---
+            // --- 5.5 Card entrance (mantido, coerente com desktop e mobile) ---
             const cards = document.querySelectorAll(".card-item");
             if (cards.length > 0) {
                 cards.forEach((card) => {
                     gsap.fromTo(card,
                         { y: 30, opacity: 0 },
-                        { y: 0, opacity: 1, duration: 0.8, ease: "power2.out", scrollTrigger: { trigger: card, start: "top 88%", toggleActions: "play none none reverse" } }
+                        {
+                            y: 0,
+                            opacity: 1,
+                            duration: 0.8,
+                            ease: "power2.out",
+                            scrollTrigger: {
+                                trigger: card,
+                                start: "top 88%",
+                                toggleActions: "play none none reverse"
+                            }
+                        }
                     );
                 });
             }
 
+            // Cleanup ao trocar de breakpoint (matchMedia re-executa o contexto)
             return () => {
                 serviceItems.forEach((item) => gsap.set(item, { clearProps: "transform" }));
             };
